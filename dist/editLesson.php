@@ -220,20 +220,21 @@ if (!isset($_SESSION['username'])) {
 
 
                                     ?>
-                                            <form action="./control/add.php" method="post" enctype="multipart/form-data" id="edit">
+                                            <form action="./control/update.php" method="post" enctype="multipart/form-data" id="edit">
 
 
                                                 <h3 class="text-info text-center py-4">Edit Lesson</h3>
 
                                                 <div class="form-group">
                                                     <label for="lesson_id">Lesson_ID</label>
-                                                    <input type="text" class="form-control my-2" id="lesson_name" value=<?= $row['lesson_id'] ?> name="lesson_name" placeholder="lesson_name...">
+                                                    <input type="text" class="form-control my-2" id="lesson_name" value=<?= $row['lesson_id'] ?> name="lesson_id" placeholder="lesson_name...">
                                                 </div>
 
 
                                                 <div class="form-group">
                                                     <label for="lesson_name">Lesson Name</label>
-                                                    <input type="text" class="form-control my-2" id="lesson_name" value=<?= $row['lesson_name'] ?> name="lesson_name" placeholder="lesson_name...">
+                                                    <textarea placeholder="Lesson Name" class="form-control my-2" name="lesson_name"> <?php echo $row['lesson_name'] ?></textarea>
+
                                                 </div>
 
 
@@ -254,15 +255,13 @@ if (!isset($_SESSION['username'])) {
 
 
                                                 <div class="text-center">
-                                                    <button type="submit" name="addLesson" class="btn btn-primary my-2">Submit</button>
+                                                    <button type="submit" name="updateLesson" class="btn btn-primary my-2">Submit</button>
                                                 </div>
 
                                             </form>
                                     <?php
 
                                         }
-                                    } else {
-                                        echo "no records found";
                                     }
 
                                     $conn->close();

@@ -137,10 +137,11 @@ if (isset($_POST['addSnippets'])) {
 if (isset($_POST['addQuiz'])) {
     $module_id = $_POST['module_id'];
     $started_at = $_POST['started_at'];
+    $title = $_POST['title'];
 
-    $question_type = $_POST['question_type'];
 
-    $sql = "insert into quiz_tbl (module_id,started_at,question_type)values('$module_id','$started_at','$question_type')";
+
+    $sql = "insert into quiz_tbl (module_id,started_at,title)values('$module_id','$started_at','$title')";
     $result = $conn->query($sql);
     if ($result) {
 
@@ -158,7 +159,7 @@ if (isset($_POST['addQuestion'])) {
     $description = $_POST['description'];
     $time_duration = $_POST['time_duration'];
     $difficulty_level = $_POST['difficulty_level'];
-
+    $question_type = $_POST['question_type'];
     echo $quiz_id;
     echo $description;
     echo $time_duration;
@@ -166,7 +167,7 @@ if (isset($_POST['addQuestion'])) {
 
     if (!empty($quiz_id) && !empty($description) && !empty($time_duration) && !empty($difficulty_level)) {
 
-        $sql = "insert into questions_tbl (description,time ,quiz_id,difficulty_level)values('$description','$time_duration','$quiz_id','$difficulty_level')";
+        $sql = "insert into questions_tbl (description,time ,quiz_id,difficulty_level,question_type)values('$description','$time_duration','$quiz_id','$difficulty_level','$question_type')";
         $result = $conn->query($sql);
 
         if ($result) {

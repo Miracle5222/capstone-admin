@@ -128,42 +128,7 @@ if (!isset($_SESSION['username'])) {
                 <div class="container-fluid px-4 mt-4">
                     <div class="row">
                         <div>
-                            <?php
-                            if (isset($_SESSION['success'])) {
-                            ?>
-                                <!-- <div class=" alert alert-warning alert-dismissible fade show" role="alert">
-                                    <h3 class="text-info  " id="success"><?= $_SESSION['success'] ?></h3>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
 
-                                </div> -->
-                                <div class="alert alert-success alert-dismissible fade show">
-                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                    <?= $_SESSION['success'] ?>
-                                </div>
-
-                            <?php
-                            }
-                            ?>
-                            <?php
-                            if (isset($_SESSION['error'])) {
-                            ?>
-                                <div class="alert alert-danger alert-dismissible fade show">
-                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                    <?= $_SESSION['success'] ?>
-                                </div>
-                                <!-- <div class=" alert alert-danger alert-dismissible fade show" role="alert">
-                                    <h3 class="text-info  " id="success"><?= $_SESSION['success'] ?></h3>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-
-                                </div> -->
-
-                            <?php
-                            }
-                            ?>
 
                         </div>
                     </div>
@@ -225,8 +190,6 @@ if (!isset($_SESSION['username'])) {
                                         <?php
 
                                             }
-                                        } else {
-                                            echo "no records found";
                                         }
 
 
@@ -292,8 +255,6 @@ if (!isset($_SESSION['username'])) {
                                             <?php
 
                                                 }
-                                            } else {
-                                                echo "no records found";
                                             }
 
 

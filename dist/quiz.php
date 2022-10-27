@@ -154,6 +154,10 @@ if (!isset($_SESSION['username'])) {
 
                                             <form action="./control/add.php" method="post" enctype="multipart/form-data">
                                                 <div class="form-group">
+                                                    <label for="title">Title</label>
+                                                    <input type="text" class="form-control my-2" id="title" name="title" placeholder="Title...">
+                                                </div>
+                                                <div class="form-group">
                                                     <label for="module_id">Module_ID</label>
                                                     <select class="form-control" name="module_id">
                                                         <?php
@@ -180,15 +184,7 @@ if (!isset($_SESSION['username'])) {
 
 
 
-                                                <div class="form-group">
-                                                    <label for="quiestion_type">Quiz Type</label>
-                                                    <select id="quiestion_type" class="form-control" name="question_type">
-                                                        <option value="Multiple Choice" selected>Multiple Choice</option>
-                                                        <option value="Problem Solving">Problem Solving</option>
 
-
-                                                    </select>
-                                                </div>
 
 
                                                 <div class="modal-footer">
@@ -253,6 +249,15 @@ if (!isset($_SESSION['username'])) {
                                                         <option value="easy" selected>Easy</option>
                                                         <option value="medium">Medium</option>
                                                         <option value="hard">Hard</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="quiestion_type">Quiz Type</label>
+                                                    <select id="quiestion_type" class="form-control" name="question_type">
+                                                        <option value="Multiple Choice" selected>Multiple Choice</option>
+                                                        <option value="Problem Solving">Problem Solving</option>
+
+
                                                     </select>
                                                 </div>
                                                 <!-- <div>
@@ -394,9 +399,10 @@ if (!isset($_SESSION['username'])) {
 
                                     <tr>
                                         <th scope="col">Quiz_ID</th>
+                                        <th scope="col">Session</th>
                                         <th scope="col">Module_Id</th>
                                         <th scope="col">Date_Created</th>
-                                        <th scope="col">Quiz_type</th>
+
                                         <th scope="col">Edit</th>
 
                                     </tr>
@@ -404,9 +410,10 @@ if (!isset($_SESSION['username'])) {
                                 <tfoot>
                                     <tr>
                                         <th scope="col">Quiz_ID</th>
+                                        <th scope="col">Session</th>
                                         <th scope="col">Module_Id</th>
                                         <th scope="col">Date_Created</th>
-                                        <th scope="col">Quiz_type</th>
+
                                         <th scope="col">Edit</th>
                                     </tr>
                                 </tfoot>
@@ -421,10 +428,11 @@ if (!isset($_SESSION['username'])) {
 
                                             <tr>
                                                 <th scope="row"><?php echo $row['quiz_id']; ?></th>
+                                                <td><?php echo $row['title']; ?></td>
                                                 <td><?php echo $row['module_id']; ?></td>
 
                                                 <td><?php echo $row['started_at']; ?></td>
-                                                <td><?php echo $row['question_type']; ?></td>
+
                                                 <td>
                                                     <div class="d-flex"><a class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editModule.php?id=<?= $row['module_id'] ?>">Edit</a></div>
                                                 </td>
@@ -447,7 +455,7 @@ if (!isset($_SESSION['username'])) {
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
-                            Quiz Table
+                            Question Table
                         </div>
                         <?php
 
@@ -470,6 +478,7 @@ if (!isset($_SESSION['username'])) {
                                         <th scope="col">Time</th>
                                         <th scope="col">Quiz_ID</th>
                                         <th scope="col">Difficulty_Level</th>
+                                        <th scope="col">Question_Type</th>
                                         <th scope="col">Edit</th>
 
                                     </tr>
@@ -489,6 +498,7 @@ if (!isset($_SESSION['username'])) {
                                                 <td><?php echo $row['time']; ?></td>
                                                 <td><?php echo $row['quiz_id']; ?></td>
                                                 <td><?php echo $row['difficulty_level']; ?></td>
+                                                <td><?php echo $row['question_type']; ?></td>
 
                                                 <td>
                                                     <div class="d-flex"><a class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editModule.php?id=<?= $row['question_id'] ?>">Edit</a></div>
@@ -512,7 +522,7 @@ if (!isset($_SESSION['username'])) {
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
-                            Quiz Table
+                            Choices Table
                         </div>
                         <?php
 
@@ -552,7 +562,7 @@ if (!isset($_SESSION['username'])) {
                                                 <td><?php echo $row['answer']; ?></td>
                                                 <td><?php echo $row['choice_description']; ?></td>
 
-                                                <td><?php echo $row['questions_id']; ?></td>
+                                                <td><?php echo $row['question_id']; ?></td>
 
                                                 <td>
                                                     <div class="d-flex"><a class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editModule.php?id=<?= $row['choices_id'] ?>">Edit</a></div>

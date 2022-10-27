@@ -127,7 +127,7 @@ if (!isset($_SESSION['username'])) {
             <main>
                 <div class="container-fluid px-4 mt-4">
                     <div class="row">
-                        <div>
+                        <!-- <div>
                             <?php
                             if (isset($_SESSION['success'])) {
                             ?>
@@ -157,7 +157,7 @@ if (!isset($_SESSION['username'])) {
                             }
                             ?>
 
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="row">

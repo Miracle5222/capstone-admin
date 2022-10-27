@@ -4,7 +4,7 @@
 ?>
 <?php
 if (!isset($_SESSION['username'])) {
-    header("login.php");
+    header("Location: login.php");
 }
 ?>
 
@@ -207,11 +207,11 @@ if (!isset($_SESSION['username'])) {
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
-                            Modules Table
+                            Programming Language Table
                         </div>
                         <?php
 
-                        $sql = "SELECT * from modules_tbl";
+                        $sql = "SELECT * from programming_language_tbl";
                         $result = $conn->query($sql);
 
 
@@ -224,20 +224,18 @@ if (!isset($_SESSION['username'])) {
 
                                     <tr>
                                         <th scope="col">ID</th>
-                                        <th scope="col">Title</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Language_ID</th>
-                                        <th scope="col">Date Added</th>
+                                        <th scope="col">Lanugage</th>
+                                        <th scope="col">Student_ID</th>
+
                                         <th scope="col">Edit</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
                                         <th scope="col">ID</th>
-                                        <th scope="col">Title</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Language_ID</th>
-                                        <th scope="col">Date Added</th>
+                                        <th scope="col">Lanugage</th>
+                                        <th scope="col">Student_ID</th>
+
                                         <th scope="col">Edit</th>
                                     </tr>
                                 </tfoot>
@@ -247,11 +245,10 @@ if (!isset($_SESSION['username'])) {
                                     ?>
 
                                             <tr>
-                                                <th scope="row"><?php echo $row['module_id']; ?></th>
-                                                <td><?php echo $row['title']; ?></td>
-                                                <td><?php echo $row['status']; ?></td>
-                                                <td><?php echo $row['programming_id']; ?></td>
-                                                <td><?php echo $row['date_added']; ?></td>
+                                                <th scope="row"><?php echo $row['programming_id']; ?></th>
+                                                <td><?php echo $row['name']; ?></td>
+                                                <td><?php echo $row['student_id']; ?></td>
+
                                                 <td><button class="btn btn-danger mx-2">Delete</button><button class="btn btn-info  mx-2">Edit</button></td>
 
                                             </tr>

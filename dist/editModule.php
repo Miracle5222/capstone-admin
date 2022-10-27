@@ -127,7 +127,7 @@ if (!isset($_SESSION['username'])) {
             <main>
                 <div class="container-fluid px-4 mt-4">
                     <div class="row">
-                        <div>
+                        <!-- <div>
                             <?php
                             if (isset($_SESSION['success'])) {
                             ?>
@@ -156,7 +156,7 @@ if (!isset($_SESSION['username'])) {
                             <?php
                             }
                             ?>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="row">
@@ -247,7 +247,7 @@ if (!isset($_SESSION['username'])) {
 
 
                                     $id = $_GET['id'];
-                                    $sql = "SELECT * FROM modules_tbl where module_id = $id;";
+                                    $sql = "SELECT * FROM modules_tbl where module_id = '$id';";
                                     $result = $conn->query($sql);
 
                                     if ($result->num_rows > 0) {
@@ -257,7 +257,7 @@ if (!isset($_SESSION['username'])) {
                                     ?>
                                             <form action="./control/update.php" method="post" enctype="multipart/form-data">
                                                 <h3 class="text-info text-center py-4">Edit Modules</h3>
-                                                <div class="form-group">
+                                                <!-- <div class="form-group">
 
                                                     <label for="title">Module_ID</label>
                                                     <select id="inputState" class="form-control" name="module_id">
@@ -274,10 +274,16 @@ if (!isset($_SESSION['username'])) {
                                                         endforeach;
                                                         ?>
                                                     </select>
+                                                </div> -->
+                                                <div class="form-group">
+                                                    <label for="module_id">module_id</label>
+
+                                                    <input type="text" class="form-control" value=<?= $row['module_id'] ?> name="module_id" placeholder="module_id...">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="title">Title</label>
-                                                    <input type="text" class="form-control" value=<?= $row['title'] ?> id="title" name="title" placeholder="title...">
+                                                    <textarea type="text" placeholder="title..." class="form-control my-2" name="title"> <?php echo $row['title'] ?></textarea>
+
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="inputState">State</label>

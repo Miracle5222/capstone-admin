@@ -82,7 +82,7 @@ if (!isset($_SESSION['username'])) {
 
                         <div class="collapse" id="collapseLayout" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="module.php">Module</a>
+                                <a class="nav-link" href="module.php">Module</a>
                                 <a class="nav-link" href="lesson.php">Lesson</a>
                                 <a class="nav-link" href="sub-lesson.php">Sub-Lesson</a>
                                 <a class="nav-link" href="code.php">Snippets</a>
@@ -128,34 +128,7 @@ if (!isset($_SESSION['username'])) {
                 <div class="container-fluid px-4 mt-4">
                     <div class="row">
                         <div>
-                            <?php
-                            if (isset($_SESSION['success'])) {
-                            ?>
-                                <div class=" alert alert-warning alert-dismissible fade show" role="alert">
-                                    <h3 class="text-info  " id="success"><?= $_SESSION['success'] ?></h3>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
 
-                                </div>
-
-                            <?php
-                            }
-                            ?>
-                            <?php
-                            if (isset($_SESSION['error'])) {
-                            ?>
-                                <div class=" alert alert-danger alert-dismissible fade show" role="alert">
-                                    <h3 class="text-info  " id="success"><?= $_SESSION['success'] ?></h3>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-
-                                </div>
-
-                            <?php
-                            }
-                            ?>
 
                         </div>
                     </div>

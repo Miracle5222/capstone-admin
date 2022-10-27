@@ -247,9 +247,6 @@ if (!isset($_SESSION['username'])) {
                                             }
 
                                             $_SESSION['module_id'] = $arr1;
-                                          
-                                        } else {
-                                            echo "no records found";
                                         }
 
                                         $conn->close();

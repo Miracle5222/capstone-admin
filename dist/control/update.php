@@ -88,3 +88,20 @@ if (isset($_POST['updateSnippets'])) {
     }
     $conn->close();
 }
+if (isset($_POST['updateLesson'])) {
+
+    $id = $_POST['lesson_id'];
+    $lesson_name = $_POST['lesson_name'];
+    $status = $_POST['status'];
+    $module_id = $_POST['module_id'];
+
+    $sql = "UPDATE lesson_tbl SET lesson_id ='$id', lesson_name='$lesson_name', status='$status', module_id ='$module_id' WHERE lesson_id=$id";
+    if ($conn->query($sql) === TRUE) {
+        $_SESSION['success'] = "Data Updated Successfully";
+        header("Location: ../editLesson.php?id=$id#table");
+    } else {
+        $_SESSION['error'] = "Failed to Updated file . $conn->error";
+        header("Location: ../editLesson.php?id=$id#table");
+    }
+    $conn->close();
+}

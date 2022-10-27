@@ -191,7 +191,7 @@ if (!isset($_SESSION['username'])) {
                         </div>
                     </div>
                     <div class="row">
-                        <div>
+                        <!-- <div>
                             <?php
                             if (isset($_SESSION['success'])) {
                             ?>
@@ -220,7 +220,7 @@ if (!isset($_SESSION['username'])) {
                             <?php
                             }
                             ?>
-                        </div>
+                        </div> -->
 
 
                         <div class="card mb-4">
@@ -271,15 +271,13 @@ if (!isset($_SESSION['username'])) {
                                                     <td><?php echo $row['module_id']; ?></td>
 
                                                     <td>
-                                                        <div class="d-flex"><a class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editLesson.php?id=<?= $row['module_id'] ?>#edit">Edit</a></div>
+                                                        <div class="d-flex"><a class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editLesson.php?id=<?= $row['lesson_id'] ?>#edit">Edit</a></div>
                                                     </td>
 
                                                 </tr>
                                         <?php
 
                                             }
-                                        } else {
-                                            echo "no records found";
                                         }
 
                                         $conn->close();
