@@ -21,7 +21,7 @@ $email = $obj['email'];
 $password = $obj['password'];
 
 
-$sql = "select * from student_tbl where (username='$name' or email='$email');";
+$sql = "select * from student_tbl ";
 
 $result = $conn->query($sql);
 
@@ -42,7 +42,7 @@ if (mysqli_num_rows($result) > 0) {
 } else {
 
 
-    $sql = "INSERT INTO student_tbl (username, email, password)VALUES ('$name', '$password', '$email')";
+    $sql = "INSERT INTO student_tbl (username, email, password)VALUES ('$name',  '$email', '$password')";
 
     if ($conn->query($sql) === TRUE) {
         // echo "New record created successfully";

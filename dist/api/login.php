@@ -13,28 +13,16 @@ $arr1 = array();
 $arr2 = array();
 
 
-
-
-
 $email = $obj['email'];
-
 $password = $obj['password'];
 
 $sql = "SELECT * FROM student_tbl where password = '$password' and email ='$email ' ";
-
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-
     while ($row = $result->fetch_assoc()) {
-
         $arr2["username"] = $row['username'];
         $arr2["email"] = $row['email'];
-        // $arr2["title"] = $row['title'];
-        // $arr2["status"] = $row["status"];
-        // $arr2["module_id"] = $row["module_id"];
-        // $arr2["programming_id"] = $row["programming_id"];
-
         array_push($arr1, $arr2);
     }
 }

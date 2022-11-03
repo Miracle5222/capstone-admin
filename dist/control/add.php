@@ -160,10 +160,7 @@ if (isset($_POST['addQuestion'])) {
     $time_duration = $_POST['time_duration'];
     $difficulty_level = $_POST['difficulty_level'];
     $question_type = $_POST['question_type'];
-    echo $quiz_id;
-    echo $description;
-    echo $time_duration;
-    echo $difficulty_level;
+
 
     if (!empty($quiz_id) && !empty($description) && !empty($time_duration) && !empty($difficulty_level)) {
 
@@ -183,14 +180,16 @@ if (isset($_POST['addQuestion'])) {
 }
 
 if (isset($_POST['addChoices'])) {
-
     $answer = $_POST['answer'];
     $choice_description = $_POST['choice_description'];
     $questions_id = $_POST['questions_id'];
+    echo   $answer;
+    echo   $choice_description;
+    echo   $questions_id;
 
     if (!empty($answer) && !empty($choice_description) && !empty($questions_id)) {
 
-        $sql = "insert into choices_tbl (answer,choice_description,questions_id)values('$answer','$choice_description','$questions_id')";
+        $sql = "insert into choices_tbl (answer,choice_description,question_id)values('$answer','$choice_description','$questions_id')";
         $result = $conn->query($sql);
 
 

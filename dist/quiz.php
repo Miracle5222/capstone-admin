@@ -357,9 +357,7 @@ if (!isset($_SESSION['username'])) {
                                                     <input type="number" class="form-control my-2" id="questions_id" name="questions_id" placeholder="lesson_name...">
                                                 </div>
 
-
-
-
+                                                
 
                                                 <div class="modal-footer">
                                                     <button type="submit" name="addChoices" class="btn btn-primary my-2">Submit</button>
