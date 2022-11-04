@@ -69,6 +69,7 @@ if (isset($_POST['updateModule'])) {
     }
     $conn->close();
 }
+
 if (isset($_POST['updateSnippets'])) {
     $id = $_POST['snippets_id'];
     $language = $_POST['language'];

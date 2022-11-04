@@ -267,9 +267,9 @@ if (!isset($_SESSION['username'])) {
                                                     <td><?php echo $row['lesson_id']; ?></td>
                                                     <td><?php echo $row['paragraph']; ?></td>
                                                     <td>
-                                                        <div class="d-flex">
-                                                            <div class="d-flex"><a class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editSub.php?id=<?= $row['sub_lesson_id'] ?>#edit">Edit</a></div>
-                                                        </div>
+
+                                                        <div class="d-flex"><a onClick="return confirm('are you sure you want to delete this file?')" href="./control/delete.php?id=<?= $row['sub_lesson_id']; ?>" class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editSub.php?id=<?= $row['sub_lesson_id'] ?>#edit">Edit</a></div>
+
                                                     </td>
 
                                                 </tr>
@@ -331,7 +331,7 @@ if (!isset($_SESSION['username'])) {
                                                         <td><?php echo $row['sub_lesson_id']; ?></td>
 
                                                         <td>
-                                                            <div class="d-flex"><button class="btn btn-danger mx-2">Delete</button><button class="btn btn-dark mx-2">Edit</button></div>
+                                                            <div class="d-flex"><a onClick="return confirm('are you sure you want to delete this file?')" href="./control/delete.php?snippets_id=<?= $row['snippets_id']; ?>" class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editCode.php?id=<?= $row['snippets_id'] ?>#edit">Edit</a></div>
                                                         </td>
 
                                                     </tr>
