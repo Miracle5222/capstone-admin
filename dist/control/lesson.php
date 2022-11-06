@@ -37,7 +37,13 @@ $arr4 = array();
 
 $sqls = "SELECT * FROM lesson_tbl ";
 $results = $conn->query($sqls);
+$length = $results->num_rows;
 
+
+
+
+
+// print_r($results);
 if ($results->num_rows > 0) {
     while ($rows = $results->fetch_assoc()) {
         $arr4["lesson_id"] = $rows['lesson_id'];
