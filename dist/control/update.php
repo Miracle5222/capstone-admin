@@ -55,7 +55,7 @@ if (isset($_POST['subLesson'])) {
 if (isset($_POST['updateModule'])) {
 
     $id = $_POST['module_id'];
-    $title = $_POST['title'];
+    $title = trim($_POST['title']);
     $status = $_POST['status'];
     $programming_id = $_POST['programming_id'];
 
@@ -92,7 +92,7 @@ if (isset($_POST['updateSnippets'])) {
 if (isset($_POST['updateLesson'])) {
 
     $id = $_POST['lesson_id'];
-    $lesson_name = $_POST['lesson_name'];
+    $lesson_name = trim($_POST['lesson_name']);
     $status = $_POST['status'];
     $module_id = $_POST['module_id'];
 

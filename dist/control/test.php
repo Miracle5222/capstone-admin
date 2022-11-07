@@ -5,28 +5,35 @@
 
 <?php
 
+$id = "2.1";
 
-$arr1 = array();
-$arr2 = array();
-$sql = "SELECT * FROM modules_tbl ";
-$result = $conn->query($sql);
+$id += .1;
+
+echo $id;
+echo gettype($id);
 
 
-// print_r($result);
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $arr2["title"] = $row['title'];
-        $arr2["status"] = $row["status"];
-        $arr2["module_id"] = $row["module_id"];
-        $arr2["programming_id"] = $row["programming_id"];
+// $arr1 = array();
+// $arr2 = array();
+// $sql = "SELECT * FROM modules_tbl ";
+// $result = $conn->query($sql);
 
-        array_push($arr1, $arr2);
-    }
-}
 
-$Message = ["data" => $arr1];
+// // print_r($result);
+// if ($result->num_rows > 0) {
+//     while ($row = $result->fetch_assoc()) {
+//         $arr2["title"] = $row['title'];
+//         $arr2["status"] = $row["status"];
+//         $arr2["module_id"] = $row["module_id"];
+//         $arr2["programming_id"] = $row["programming_id"];
 
-echo json_encode($Message);
+//         array_push($arr1, $arr2);
+//     }
+// }
+
+// $Message = ["data" => $arr1];
+
+// echo json_encode($Message);
 
 
 // $arr3 = array();

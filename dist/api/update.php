@@ -16,11 +16,11 @@ $status = $obj['status'];
 
 $sql = "update lesson_tbl set status = '$status ' where lesson_id = '$lesson_id'  ";
 
-
 $result = $conn->query($sql);
 
 if ($result) {
     $Message['data'] = array("message" => "Lesson: $lesson_id updated");
+    
 } else {
     $Message['data'] = array("message" => "Update Failed");
 }
