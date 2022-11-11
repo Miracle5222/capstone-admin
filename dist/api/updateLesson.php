@@ -24,13 +24,22 @@ if ($result) {
 
     $id = $lesson_id;
     $id += .1;
-    $sqls = "update lesson_tbl set status = 'unlock' where lesson_id = '$id'  ";
-    $results = $conn->query($sqls);
 
-    if ($results) {
-        $Message['data'] = array("message" => "Unlock Status");
-    } else {
-        $Message['data'] = array("message" => "Unlock Status Failed");
+    $selectUpdate = "select * from lesson_tbl where lesson_id = '$id'";
+    $selectUpdateResult = $conn->query($selectUpdate);
+
+    if ($selectUpdateResult->num_rows > 0) {
+        while ($row = $selectUpdateResult->fetch_assoc()) {
+            if ($row['status'] != "done") {
+                $sqls = "update lesson_tbl set status = 'unlock' where lesson_id = '$id'  ";
+                $results = $conn->query($sqls);
+                if ($results) {
+                    $Message['data'] = array("message" => "Unlock Status");
+                } else {
+                    $Message['data'] = array("message" => "Unlock Status Failed");
+                }
+            }
+        }
     }
 } else {
     $Message['data'] = array("message" => "Update Failed");
@@ -41,7 +50,6 @@ if ($result) {
 $sqlModule = "SELECT * FROM lesson_tbl WHERE STATUS = 'lock' AND module_id =  '$module_id'";
 $resultModule = $conn->query($sqlModule);
 
-print_r($resultModule);
 
 if (!$resultModule->num_rows > 0) {
 

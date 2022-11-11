@@ -138,9 +138,7 @@ if (!isset($_SESSION['username'])) {
                             <button type="button" class="btn btn-primary my-4" data-toggle="modal" data-target="#exampleModalCenters">
                                 Add Questions
                             </button>
-                            <button type="button" class="btn btn-primary my-4" data-toggle="modal" data-target="#exampleModalCenterss">
-                                Add Choices
-                            </button>
+
                             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
@@ -375,81 +373,7 @@ if (!isset($_SESSION['username'])) {
 
                         </div>
                     </div>
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-table me-1"></i>
-                            Quiz Table
-                        </div>
-                        <?php
 
-
-
-                        $sql = "SELECT * from quiz_tbl";
-                        $result = $conn->query($sql);
-
-
-
-
-                        ?>
-                        <div class="card-body">
-                            <table id="datatablesSimple">
-                                <thead>
-
-                                    <tr>
-                                        <th scope="col">Quiz_ID</th>
-                                        <th scope="col">Session</th>
-                                        <th scope="col">Module_Id</th>
-                                        <th scope="col">Date_Created</th>
-
-                                        <th scope="col">Edit</th>
-
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th scope="col">Quiz_ID</th>
-                                        <th scope="col">Session</th>
-                                        <th scope="col">Module_Id</th>
-                                        <th scope="col">Date_Created</th>
-
-                                        <th scope="col">Edit</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                    <?php if ($result->num_rows > 0) {
-                                        $arr1 = array();
-                                        $arr2 = array();
-                                        while ($row = $result->fetch_assoc()) {
-                                            $arr2 = $row['quiz_id'];
-                                            array_push($arr1, $arr2);
-                                    ?>
-
-                                            <tr>
-                                                <th scope="row"><?php echo $row['quiz_id']; ?></th>
-                                                <td><?php echo $row['title']; ?></td>
-                                                <td><?php echo $row['module_id']; ?></td>
-
-                                                <td><?php echo $row['started_at']; ?></td>
-
-                                                <td>
-                                                    <div class="d-flex"><a onClick="return confirm('are you sure you want to delete this Quiz file?')" href="./control/delete.php?quiz_id=<?= $row['quiz_id']; ?>" class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editModule.php?id=<?= $row['module_id'] ?>">Edit</a></div>
-                                                </td>
-
-                                            </tr>
-                                    <?php
-
-                                        }
-                                        $_SESSION['quiz_id'] = $arr1;
-                                    }
-
-
-                                    ?>
-
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
@@ -500,70 +424,6 @@ if (!isset($_SESSION['username'])) {
 
                                                 <td>
                                                     <div class="d-flex"><a onClick="return confirm('are you sure you want to delete this question?')" href="./control/delete.php?question_id=<?= $row['question_id']; ?>" class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editModule.php?id=<?= $row['question_id'] ?>">Edit</a></div>
-                                                </td>
-
-                                            </tr>
-                                    <?php
-
-                                        }
-                                        $_SESSION['quiz_id'] = $arr1;
-                                    }
-
-
-                                    ?>
-
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-table me-1"></i>
-                            Choices Table
-                        </div>
-                        <?php
-
-
-
-                        $sql = "SELECT * from choices_tbl";
-                        $result = $conn->query($sql);
-
-
-
-
-                        ?>
-                        <div class="card-body">
-                            <table id="datatablesSimple" class="table">
-                                <thead>
-
-                                    <tr>
-                                        <th scope="col">Choices_ID</th>
-                                        <th scope="col">answer</th>
-                                        <th scope="col">Choice_Description</th>
-
-                                        <th scope="col">Question_ID</th>
-                                        <th scope="col">Edit</th>
-
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    <?php if ($result->num_rows > 0) {
-
-                                        while ($row = $result->fetch_assoc()) {
-
-                                    ?>
-
-                                            <tr>
-                                                <th scope="row"><?php echo $row['choices_id']; ?></th>
-                                                <td><?php echo $row['answer']; ?></td>
-                                                <td><?php echo $row['choice_description']; ?></td>
-
-                                                <td><?php echo $row['question_id']; ?></td>
-
-                                                <td>
-                                                    <div class="d-flex"><a onClick="return confirm('are you sure you want to delete this question?')" href="./control/delete.php?choices_id=<?= $row['choices_id']; ?>" class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editModule.php?id=<?= $row['question_id'] ?>">Edit</a></div>
                                                 </td>
 
                                             </tr>
