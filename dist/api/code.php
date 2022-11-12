@@ -8,8 +8,6 @@ $obj = json_decode($json, true);
 
 $code = $obj['code'];
 
-
-
 $file_handle = fopen('./Main.java', 'w');
 
 

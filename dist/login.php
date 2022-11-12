@@ -14,13 +14,13 @@
 
 <body>
     <div id="layoutAuthentication">
-        <div id="layoutAuthentication_content">
-            <div class="container-fluid home d-flex justify-content-center align-items-center">
+        <div id="layoutAuthentication_content" class="container-fluid home d-flex justify-content-center align-items-center ">
+            <div>
                 <div class="row">
-                    <div class="box">
+                    <div class="box" style="width: 400px; height:400px">
 
                         <div class="col h-100 ">
-                            <form class="d-flex h-100 justify-content-center align-items-center flex-column" action="./control/login.php" method="post">
+                            <form class="d-flex h-100 justify-content-center align-items-center flex-column p-4 bg-light" action="./control/login.php" method="post">
                                 <h1 class="text-dark">Admin</h1>
                                 <div class="mb-3">
                                     <label for="Username" class="form-label">Username</label>
@@ -46,9 +46,7 @@
                     <div class="d-flex align-items-center justify-content-between small">
                         <div class="text-muted">Copyright &copy; Programming E-learning Application System 2022</div>
                         <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
+
                         </div>
                     </div>
                 </div>

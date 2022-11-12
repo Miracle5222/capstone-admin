@@ -9,7 +9,7 @@ if (!isset($_SESSION['username'])) {
 ?>
 
 <?php include_once "./connections/config.php" ?>
-
+<?php include_once "./query.php" ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -134,7 +134,7 @@ if (!isset($_SESSION['username'])) {
                             <div class="card bg-primary text-white mb-4">
                                 <div class="card-body">
                                     <h6>Total Modules</h6>
-                                    <h2>700</h2>
+                                    <h2><?= $_SESSION['TotalModules'] ?></h2>
                                 </div>
                                 <!-- <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-white stretched-link" href="#">View Details</a>
@@ -149,7 +149,8 @@ if (!isset($_SESSION['username'])) {
 
                                 <div class="card-body">
                                     <h6>Lesson Finished</h6>
-                                    <h2>40</h2>
+
+                                    <h2><?= $_SESSION['TotalLesson']  ?></h2>
                                 </div>
                             </div>
                         </div>
@@ -158,8 +159,9 @@ if (!isset($_SESSION['username'])) {
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-success text-white mb-4">
                                 <div class="card-body">
-                                    <h6>Number of Modules</h6>
-                                    <h2>6</h2>
+
+                                    <h6>Total Number of Students</h6>
+                                    <h2><?= $_SESSION['Totalstuden']  ?></h2>
                                 </div>
 
                                 <!-- <div class="card-footer d-flex align-items-center justify-content-between">
@@ -273,9 +275,7 @@ if (!isset($_SESSION['username'])) {
                     <div class="d-flex align-items-center justify-content-between small">
                         <div class="text-muted">Copyright &copy; 2022 Basic Programming E-Learning Application</div>
                         <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
+
                         </div>
                     </div>
                 </div>

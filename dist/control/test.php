@@ -10,7 +10,7 @@ $choices2 = array();
 
 
 
-$sql = "SELECT quiz_tbl.`quiz_id`,  questions_tbl.`question_id`, quiz_tbl.`module_id`, questions_tbl.`time`, questions_tbl.`difficulty_level` ,questions_tbl.question_type, questions_tbl.`description` FROM quiz_tbl INNER JOIN questions_tbl ON questions_tbl.`quiz_id` = quiz_tbl.`quiz_id` ";
+$sql = "SELECT quiz_tbl.`quiz_id`,  questions_tbl.`question_id`, quiz_tbl.`module_id`, questions_tbl.`time`, questions_tbl.`difficulty_level` ,questions_tbl.question_type, questions_tbl.`description` FROM quiz_tbl INNER JOIN questions_tbl ON questions_tbl.`quiz_id` = quiz_tbl.`quiz_id` ORDER BY RAND() ";
 $result = $conn->query($sql);
 
 
@@ -26,7 +26,7 @@ if ($result->num_rows > 0) {
 
         array_push($arr1, $arr2);
 
-        $sqls = "SELECT * FROM choices_tbl where question_id = '$row[question_id]'";
+        $sqls = "SELECT * FROM choices_tbl where question_id = '$row[question_id]' ORDER BY RAND()";
         $results = $conn->query($sqls);
         while ($rows = $results->fetch_assoc()) {
             // echo $rows['question_id'];
