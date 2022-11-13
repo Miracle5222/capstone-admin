@@ -21,6 +21,7 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
+        $arr2["student_id"] = $row['student_id'];
         $arr2["username"] = $row['username'];
         $arr2["email"] = $row['email'];
         array_push($arr1, $arr2);
