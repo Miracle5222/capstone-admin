@@ -15,6 +15,7 @@ $obj = json_decode($json, true);
 // score: score,
 // student_id: currStudent_id,
 // quiz_id: quiz_id,
+
 $lesson_id = $obj['lesson_id'];
 $module_id = $obj['module_id'];
 $quiz_id = $obj['quiz_id'];
@@ -23,7 +24,7 @@ $score = $obj['score'];
 
 
 $status = "";
-$dateToday = date("Y-m-d h:i:s");
+$dateToday = date("h:i:s");
 $selectQuestions = "select count(question_id) as length from questions_tbl where quiz_id = '$quiz_id'";
 $selectQueryQuestions = $conn->query($selectQuestions);
 $questionsResult = $selectQueryQuestions->fetch_assoc();

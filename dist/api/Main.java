@@ -1,7 +1,5 @@
-public class Main { public static void main(String[] args) { 
-int meters = 1000;
-
-System.out.println(meters * 0.0254);
-
- }
- }
+class Main{
+public static void main(String[] args){
+System.out.println(0.3048);
+}
+}

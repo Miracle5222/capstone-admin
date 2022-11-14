@@ -21,6 +21,7 @@ $code = exec("java Main");
 
 $Message["code"] = $code;
 
+fclose($file_handle);
 
 
 echo json_encode($Message);
