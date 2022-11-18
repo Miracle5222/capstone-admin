@@ -129,7 +129,7 @@ if (!isset($_SESSION['username'])) {
 
                     <div class="row">
                         <div>
-                            <button type="button" class="btn btn-primary my-4" data-toggle="modal" data-target="#exampleModalCenter">
+                            <!-- <button type="button" class="btn btn-primary my-4" data-toggle="modal" data-target="#exampleModalCenter">
                                 Add Lesson
                             </button>
                             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -187,7 +187,7 @@ if (!isset($_SESSION['username'])) {
 
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="row">
@@ -230,7 +230,7 @@ if (!isset($_SESSION['username'])) {
                             </div>
                             <?php
 
-                            $sql = "SELECT * from lesson_tbl";
+                            $sql = "SELECT * from les_tbl";
                             $result = $conn->query($sql);
 
 
@@ -271,7 +271,7 @@ if (!isset($_SESSION['username'])) {
                                                     <td><?php echo $row['module_id']; ?></td>
 
                                                     <td>
-                                                        <div class="d-flex"><a class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editLesson.php?id=<?= $row['lesson_id'] ?>#edit">Edit</a></div>
+                                                        <div class="d-flex"><a href="./control/delete.php?id=<?= $row['lesson_id'] ?>" onClick="return confirm('are you sure you want to delete this lesson?')" class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editLesson.php?id=<?= $row['lesson_id'] ?>#edit">Edit</a></div>
                                                     </td>
 
                                                 </tr>

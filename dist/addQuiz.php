@@ -9,7 +9,7 @@ if (!isset($_SESSION['username'])) {
 ?>
 
 <?php include_once "./connections/config.php" ?>
-
+<?php include_once "./query.php" ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -90,6 +90,25 @@ if (!isset($_SESSION['username'])) {
                             </nav>
                         </div>
 
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#quiz" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Add Quiz
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+
+                        <div class="collapse" id="quiz" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="module.php"><i class="fas fa-eye px-2"></i>View</a>
+                                <a class="nav-link" href="module.php"><i class="fas fa-edit px-2"></i>View</a>
+                                <!-- <a class="nav-link" href="sub-lesson.php">Sub-Lesson</a>
+                                <a class="nav-link" href="code.php">Snippets</a> -->
+
+                            </nav>
+                        </div>
+
+
+
+
 
                         <div class="sb-sidenav-menu-heading">Quizzes</div>
                         <a class="nav-link" href="quiz.php">
@@ -125,46 +144,124 @@ if (!isset($_SESSION['username'])) {
         </div>
         <div id="layoutSidenav_content">
             <main>
-                <div class="container-fluid px-4 mt-4">
+                <div class="container-fluid px-4">
 
-                    <div class="row">
-                        <!-- <div>
+
+                    <div class="row py-4">
+                        <?php
+                        if (isset($_POST['addQuiz'])) {
+                            $quiz_ids = $_POST['quiz_ids'];
+                            $module_id = $_POST['module_id'];
+                            $student_ids = $_POST['student_ids'];
+
+
+                            $sql = "insert into quizzes_tbl (quiz_id,student_id,module_id)values('$quiz_ids','$student_ids','$module_id')";
+                            $result = $conn->query($sql);
+
+                            if ($result) { ?>
+
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>Quiz ID <?= $quiz_ids ?></strong> Quiz Added
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            <?php  } else { ?>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>Failed to add Quiz!</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                        <?php
+                            }
+                        }
+
+                        ?>
+                        <div class="col-md-4">
                             <button type="button" class="btn btn-primary my-4" data-toggle="modal" data-target="#exampleModalCenter">
-                                Add Modules
+                                Add Quiz
                             </button>
                             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
+
                                         <div class="modal-header">
-                                            <h3 class="text-info text-center py-4">Add Modules</h3>
+                                            <h5 class="text-info text-center py-4">Add Quiz</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="./control/add.php" method="post" enctype="multipart/form-data">
-                                                <div class="form-group">
-                                                    <label for="title">Title</label>
-                                                    <input type="text" class="form-control" id="title" name="title" placeholder="title...">
-                                                </div>
 
+                                            <form method="post" enctype="multipart/form-data">
                                                 <div class="form-group">
-                                                    <label for="Status">Status</label>
-                                                    <select id="inputStatusState" class="form-control" name="status">
-                                                        <option value="lock" selected>lock</option>
-                                                        <option value="unlock">unlock</option>
+                                                    <label for="module_id">Student ID</label>
+                                                    <select class="form-control" name="student_ids">
+                                                        <?php
 
-                                                        <option value="done">done</option>
+
+                                                        foreach ($_SESSION['student_ids'] as $students) :
+                                                        ?>
+
+                                                            <option value=<?= $students ?>><?= $students ?></option>
+                                                        <?php
+
+                                                        endforeach
+
+                                                        ?>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="language">Language_ID</label>
-                                                    <input type="text" class="form-control" id="language" name="language" placeholder="language_id...">
+                                                    <label for="module_id">Module ID</label>
+                                                    <select class="form-control" name="module_id">
+                                                        <?php
+                                                        $module_id  = $_SESSION['module_id'];
+
+                                                        foreach ($_SESSION['module_id'] as $module) :
+                                                        ?>
+
+                                                            <option value=<?= $module ?>><?= $module ?></option>
+                                                        <?php
+
+                                                        endforeach
+
+                                                        ?>
+
+
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="module_id">Quiz_id</label>
+                                                    <select class="form-control" name="quiz_ids">
+                                                        <?php
+
+
+                                                        foreach ($_SESSION['quiz_id'] as $module) :
+                                                        ?>
+
+                                                            <option value=<?= $module ?>><?= $module ?></option>
+                                                        <?php
+
+                                                        endforeach
+
+                                                        ?>
+
+
+                                                    </select>
                                                 </div>
 
 
+
+
+
+
+
                                                 <div class="modal-footer">
-                                                    <button type="submit" name="addModule" class="btn btn-primary my-2">Submit</button>
+                                                    <button type="submit" name="addQuiz" class="btn btn-primary my-2">Submit</button>
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
                                                 </div>
@@ -174,21 +271,20 @@ if (!isset($_SESSION['username'])) {
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
-
+                        </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-12">
 
-
-
-                        <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Modules Table
+                                Quiz Table
                             </div>
                             <?php
 
-                            $sql = "SELECT * from modules_tbl";
+
+
+                            $sql = "SELECT * from quizzes_tbl";
                             $result = $conn->query($sql);
 
 
@@ -200,64 +296,67 @@ if (!isset($_SESSION['username'])) {
                                     <thead>
 
                                         <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Title</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Language_ID</th>
-                                            <th scope="col">Date Added</th>
+                                            <th scope="col">Quizzes ID</th>
+                                            <th scope="col">Quiz ID</th>
+
+                                            <th scope="col">Student ID</th>
+                                            <th scope="col">Module ID</th>
+
                                             <th scope="col">Edit</th>
+
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Title</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Language_ID</th>
-                                            <th scope="col">Date Added</th>
+                                            <th scope="col">Quizzes ID</th>
+                                            <th scope="col">Quiz ID</th>
+
+                                            <th scope="col">Student ID</th>
+                                            <th scope="col">Module ID</th>
+
                                             <th scope="col">Edit</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <?php
-                                        if ($result->num_rows > 0) {
-
+                                        <?php if ($result->num_rows > 0) {
                                             $arr1 = array();
                                             $arr2 = array();
                                             while ($row = $result->fetch_assoc()) {
-                                                $arr2 = $row['module_id'];
+                                                $arr2 = $row['quiz_id'];
                                                 array_push($arr1, $arr2);
-
-
                                         ?>
 
                                                 <tr>
-                                                    <th scope="row"><?php echo $row['module_id']; ?></th>
-                                                    <td><?php echo $row['title']; ?></td>
-                                                    <td><?php echo $row['status']; ?></td>
-                                                    <td><?php echo $row['programming_id']; ?></td>
-                                                    <td><?php echo $row['date_added']; ?></td>
+                                                    <th scope="row"><?php echo $row['quizzes_id']; ?></th>
+                                                    <th scope="row"><?php echo $row['quiz_id']; ?></th>
+                                                    <td><?php echo $row['student_id']; ?></td>
+
+
+                                                    <td><?php echo $row['module_id']; ?></td>
+
                                                     <td>
-                                                        <div class="d-flex"><a onClick="return confirm('are you sure you want to delete this Module?')" href="./control/delete.php?module_id=<?= $row['module_id']; ?>" class="btn btn-danger mx-2 text-white">Delete</onClick=><a class="btn btn-info mx-2 text-white" href="editModule.php?id=<?= $row['module_id'] ?>">Edit</a></div>
+                                                        <div class="d-flex"><a onClick="return confirm('are you sure you want to delete this Quiz ?')" href="./control/deleteQuiz.php?quizzes_id=<?= $row['quizzes_id']; ?>" class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editQuiz.php?id=<?= $row['quiz_id'] ?>">Edit</a></div>
                                                     </td>
 
                                                 </tr>
                                         <?php
 
                                             }
-
-                                            $_SESSION['module_id'] = $arr1;
+                                            $_SESSION['quiz_id'] = $arr1;
                                         }
 
-                                        $conn->close();
+
                                         ?>
+
 
                                     </tbody>
                                 </table>
                             </div>
+
                         </div>
                     </div>
 
+                </div>
             </main>
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
@@ -273,6 +372,9 @@ if (!isset($_SESSION['username'])) {
             </footer>
         </div>
     </div>
+
+
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

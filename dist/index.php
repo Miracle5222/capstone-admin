@@ -174,8 +174,8 @@ if (!isset($_SESSION['username'])) {
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-danger text-white mb-4">
                                 <div class="card-body">
-                                    <h6>Heighest Score</h6>
-                                    <h2>200</h2>
+                                    <h6>Total Programming Language</h6>
+                                    <h2><?= $_SESSION['TotalLanguage'] ?></h2>
                                 </div>
                                 <!-- <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-white stretched-link" href="#">View Details</a>
@@ -206,16 +206,16 @@ if (!isset($_SESSION['username'])) {
                             </div> -->
                         </div>
                     </div>
+
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
-                            Programming Language Table
+                            All Students
                         </div>
                         <?php
 
-                        $sql = "SELECT * from programming_language_tbl";
+                        $sql = "SELECT student_tbl.`student_id`, student_tbl.`username`, student_tbl.`email`, student_tbl.`password` , programming_language_tbl.name FROM student_tbl INNER JOIN programming_language_tbl ON programming_language_tbl.`student_id` = student_tbl.`student_id`                        ";
                         $result = $conn->query($sql);
-
 
 
 
@@ -226,37 +226,53 @@ if (!isset($_SESSION['username'])) {
 
                                     <tr>
                                         <th scope="col">ID</th>
-                                        <th scope="col">Lanugage</th>
-                                        <th scope="col">Student_ID</th>
-
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Password</th>
+                                        <th scope="col">Programming Languages</th>
                                         <th scope="col">Edit</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
                                         <th scope="col">ID</th>
-                                        <th scope="col">Lanugage</th>
-                                        <th scope="col">Student_ID</th>
-
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Password</th>
+                                        <th scope="col">Programming Languages</th>
                                         <th scope="col">Edit</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
                                     <?php if ($result->num_rows > 0) {
+                                        $arr1 = array();
+                                        $arr2 = array();
+
+
                                         while ($row = $result->fetch_assoc()) {
+                                            $arr2 = $row['student_id'];
+                                            array_push($arr1, $arr2);
                                     ?>
 
                                             <tr>
-                                                <th scope="row"><?php echo $row['programming_id']; ?></th>
+                                                <th scope="row"><?php echo $row['student_id']; ?></th>
+                                                <td><?php echo $row['username']; ?></td>
+                                                <td><?php echo $row['email']; ?></td>
+                                                <td><?php echo $row['password']; ?></td>
                                                 <td><?php echo $row['name']; ?></td>
-                                                <td><?php echo $row['student_id']; ?></td>
-
-                                                <td><button class="btn btn-danger mx-2">Delete</button><button class="btn btn-info  mx-2">Edit</button></td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <a href="./control/delete.php?student_id=<?= $row['student_id'] ?>" onClick="return confirm('are you sure you want to remove this student?')" class="btn btn-danger mx-2 text-white">Delete</a>
+                                                        <a class="btn btn-info mx-2 text-white" href="editStudents.php?student_id=<?= $row['student_id'] ?>#edit">Edit</a>
+                                                        <a href="./addModuleAll.php?student_id=<?= $row['student_id'] ?>" class="btn btn-dark mx-2 text-white">Manage Modules</a>
+                                                    </div>
+                                                </td>
 
                                             </tr>
                                     <?php
 
                                         }
+                                        $_SESSION['student_ids'] = $arr1;
                                     } else {
                                         echo "no records found";
                                     }
@@ -273,12 +289,8 @@ if (!isset($_SESSION['username'])) {
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; 2022 Basic Programming E-Learning Application</div>
-                        <div>
 
-                        </div>
                     </div>
-                </div>
             </footer>
         </div>
     </div>

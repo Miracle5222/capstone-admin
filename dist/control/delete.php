@@ -81,3 +81,50 @@ if (isset($_GET['choices_id'])) {
         header("Location: ../quiz.php");
     }
 }
+
+if (isset($_GET['module_id'])) {
+
+    $id = $_GET['module_id'];
+    $sql = "DELETE FROM modules_tbl WHERE module_id ='$id'";
+
+
+    if ($conn->query($sql) === TRUE) {
+        echo "deleted successfully";
+
+        header("Location: ../module.php");
+    } else {
+        echo "Error deleting record: " . $conn->error;
+        header("Location: ../module.php");
+    }
+}
+if (isset($_GET['lesson_id'])) {
+
+    $id = $_GET['lesson_id'];
+    $sql = "DELETE FROM lesson_tbl WHERE lesson_id ='$id'";
+
+
+    if ($conn->query($sql) === TRUE) {
+        echo "deleted successfully";
+
+        header("Location: ../lesson.php");
+    } else {
+        echo "Error deleting record: " . $conn->error;
+        header("Location: ../lesson.php");
+    }
+}
+
+if (isset($_GET['student_id'])) {
+
+    $id = $_GET['student_id'];
+    $sql = "DELETE FROM student_tbl WHERE student_id ='$id'";
+
+
+    if ($conn->query($sql) === TRUE) {
+        echo "deleted successfully";
+
+        header("Location: ../index.php");
+    } else {
+        echo "Error deleting record: " . $conn->error;
+        header("Location: ../index.php");
+    }
+}

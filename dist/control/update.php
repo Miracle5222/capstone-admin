@@ -7,6 +7,22 @@
 // heading
 // paragraph
 // lesson_id
+if (isset($_POST['choicesUpdate'])) {
+    $choices_id = $_POST['choices_id'];
+    $choice_description = $_POST['choice_description'];
+    $answer = $_POST['answer'];
+    $question_id = $_POST['question_id'];
+
+    $sql = "UPDATE choices_tbl SET choice_description ='$choice_description', answer='$answer', question_id='$question_id' WHERE choices_id=$choices_id";
+    if ($conn->query($sql) === TRUE) {
+        $_SESSION['success'] = "Data Updated Successfully";
+        header("Location: ../editChoices.php?id=$id#table");
+    } else {
+        $_SESSION['error'] = "Failed to Updated file . $conn->error";
+        header("Location: ../editChoices.php?id=$id#table");
+    }
+    $conn->close();
+}
 
 if (isset($_POST['subLesson'])) {
     $id = $_POST['sub_id'];
@@ -70,6 +86,24 @@ if (isset($_POST['updateModule'])) {
     $conn->close();
 }
 
+if (isset($_POST['updateStudent'])) {
+
+    $student_id = $_POST['student_id'];
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $sql = "UPDATE student_tbl SET username ='$username', email='$email', password='$password' WHERE student_id=$student_id";
+    if ($conn->query($sql) === TRUE) {
+        $_SESSION['success'] = "Data Updated Successfully";
+        header("Location: ../editStudents.php?student_id=$student_id#table");
+    } else {
+        $_SESSION['error'] = "Failed to Updated file . $conn->error";
+        header("Location: ../editStudents.php?student_id=$student_id#table");
+    }
+    $conn->close();
+}
+
 if (isset($_POST['updateSnippets'])) {
     $id = $_POST['snippets_id'];
     $language = $_POST['language'];
@@ -96,13 +130,54 @@ if (isset($_POST['updateLesson'])) {
     $status = $_POST['status'];
     $module_id = $_POST['module_id'];
 
-    $sql = "UPDATE lesson_tbl SET lesson_id ='$id', lesson_name='$lesson_name', status='$status', module_id ='$module_id' WHERE lesson_id=$id";
+    $sql = "UPDATE les_tbl SET lesson_id ='$id', lesson_name='$lesson_name', status='$status', module_id ='$module_id' WHERE lesson_id=$id";
     if ($conn->query($sql) === TRUE) {
         $_SESSION['success'] = "Data Updated Successfully";
         header("Location: ../editLesson.php?id=$id#table");
     } else {
         $_SESSION['error'] = "Failed to Updated file . $conn->error";
         header("Location: ../editLesson.php?id=$id#table");
+    }
+    $conn->close();
+}
+
+if (isset($_POST['quizUpdate'])) {
+
+
+
+    $id = $_POST['quiz_id'];
+    $started_at = trim($_POST['started_at']);
+    $title = $_POST['title'];
+    $module_id = $_POST['module_id'];
+
+    $sql = "UPDATE quiz_tbl SET started_at='$started_at', title='$title', module_id ='$module_id' WHERE quiz_id=$id";
+    if ($conn->query($sql) === TRUE) {
+        $_SESSION['success'] = "Data Updated Successfully";
+        header("Location: ../editQuiz.php?id=$id#table");
+    } else {
+        $_SESSION['error'] = "Failed to Updated file . $conn->error";
+        header("Location: ../editQuiz.php?id=$id#table");
+    }
+    $conn->close();
+}
+if (isset($_POST['questionsUpdate'])) {
+
+
+
+    $id = $_POST['question_id'];
+    $quiz_id = $_POST['quiz_id'];
+    $description = trim($_POST['description']);
+    $time = $_POST['time'];
+    $difficulty_level = trim($_POST['difficulty_level']);
+    $question_type = trim($_POST['question_type']);
+
+    $sql = "UPDATE questions_tbl SET quiz_id='$quiz_id', description='$description', time ='$time', difficulty_level='$difficulty_level', question_type ='$question_type' WHERE question_id=$id";
+    if ($conn->query($sql) === TRUE) {
+        $_SESSION['success'] = "Data Updated Successfully";
+        header("Location: ../editQuestions.php?id=$id#table");
+    } else {
+        $_SESSION['error'] = "Failed to Updated file . $conn->error";
+        header("Location: ../editQuestions.php?id=$id#table");
     }
     $conn->close();
 }

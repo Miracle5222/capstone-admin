@@ -90,6 +90,25 @@ if (!isset($_SESSION['username'])) {
                             </nav>
                         </div>
 
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#quiz" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Add Quiz
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+
+                        <div class="collapse" id="quiz" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="addQuiz.php"><i class="fas fa-eye px-2"></i>View</a>
+                                <a class="nav-link" href="addQuiz.php"><i class="fas fa-edit px-2"></i>Add</a>
+                                <!-- <a class="nav-link" href="sub-lesson.php">Sub-Lesson</a>
+                                <a class="nav-link" href="code.php">Snippets</a> -->
+
+                            </nav>
+                        </div>
+
+
+
+
 
                         <div class="sb-sidenav-menu-heading">Quizzes</div>
                         <a class="nav-link" href="quiz.php">
@@ -236,7 +255,8 @@ if (!isset($_SESSION['username'])) {
 
                                                 <div class="form-group">
                                                     <label for="description">Question</label>
-                                                    <input type="text" class="form-control my-2" id="description" name="description" placeholder="description...">
+                                                    <!-- <input type="text" class="form-control my-2" id="description" name="description" placeholder="description..."> -->
+                                                    <textarea type="text" class="form-control my-2" id="description" name="description" placeholder="description..." rows="4"></textarea>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="time_duration">Time</label>
@@ -397,8 +417,8 @@ if (!isset($_SESSION['username'])) {
 
                                     <tr>
                                         <th scope="col">Quiz_ID</th>
-                                        <th scope="col">Session</th>
-                                        <th scope="col">Module_Id</th>
+                                        <th scope="col">Title</th>
+
                                         <th scope="col">Date_Created</th>
 
                                         <th scope="col">Edit</th>
@@ -408,8 +428,8 @@ if (!isset($_SESSION['username'])) {
                                 <tfoot>
                                     <tr>
                                         <th scope="col">Quiz_ID</th>
-                                        <th scope="col">Session</th>
-                                        <th scope="col">Module_Id</th>
+                                        <th scope="col">Title</th>
+
                                         <th scope="col">Date_Created</th>
 
                                         <th scope="col">Edit</th>
@@ -419,6 +439,7 @@ if (!isset($_SESSION['username'])) {
                                     <?php if ($result->num_rows > 0) {
                                         $arr1 = array();
                                         $arr2 = array();
+
                                         while ($row = $result->fetch_assoc()) {
                                             $arr2 = $row['quiz_id'];
                                             array_push($arr1, $arr2);
@@ -427,12 +448,12 @@ if (!isset($_SESSION['username'])) {
                                             <tr>
                                                 <th scope="row"><?php echo $row['quiz_id']; ?></th>
                                                 <td><?php echo $row['title']; ?></td>
-                                                <td><?php echo $row['module_id']; ?></td>
+
 
                                                 <td><?php echo $row['started_at']; ?></td>
 
                                                 <td>
-                                                    <div class="d-flex"><a onClick="return confirm('are you sure you want to delete this Quiz file?')" href="./control/delete.php?quiz_id=<?= $row['quiz_id']; ?>" class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editModule.php?id=<?= $row['module_id'] ?>">Edit</a></div>
+                                                    <div class="d-flex"><a onClick="return confirm('are you sure you want to delete this Quiz file?')" href="./control/delete.php?quiz_id=<?= $row['quiz_id']; ?>" class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editQuiz.php?id=<?= $row['quiz_id'] ?>">Edit</a></div>
                                                 </td>
 
                                             </tr>
@@ -499,7 +520,7 @@ if (!isset($_SESSION['username'])) {
                                                 <td><?php echo $row['question_type']; ?></td>
 
                                                 <td>
-                                                    <div class="d-flex"><a onClick="return confirm('are you sure you want to delete this question?')" href="./control/delete.php?question_id=<?= $row['question_id']; ?>" class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editModule.php?id=<?= $row['question_id'] ?>">Edit</a></div>
+                                                    <div class="d-flex"><a onClick="return confirm('are you sure you want to delete this question?')" href="./control/delete.php?question_id=<?= $row['question_id']; ?>" class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editQuestions.php?id=<?= $row['question_id'] ?>#edit">Edit</a></div>
                                                 </td>
 
                                             </tr>
@@ -563,7 +584,7 @@ if (!isset($_SESSION['username'])) {
                                                 <td><?php echo $row['question_id']; ?></td>
 
                                                 <td>
-                                                    <div class="d-flex"><a onClick="return confirm('are you sure you want to delete this question?')" href="./control/delete.php?choices_id=<?= $row['choices_id']; ?>" class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editModule.php?id=<?= $row['question_id'] ?>">Edit</a></div>
+                                                    <div class="d-flex"><a onClick="return confirm('are you sure you want to delete this question?')" href="./control/delete.php?choices_id=<?= $row['choices_id']; ?>" class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editChoices.php?id=<?= $row['choices_id'] ?>">Edit</a></div>
                                                 </td>
 
                                             </tr>

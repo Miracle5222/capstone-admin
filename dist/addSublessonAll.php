@@ -21,6 +21,7 @@ if (!isset($_SESSION['username'])) {
     <meta name="author" content="" />
     <title>Dashboard - SB Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
@@ -107,9 +108,9 @@ if (!isset($_SESSION['username'])) {
 
                         <div class="collapse" id="table" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="module.php">Edit Module</a>
-                                <a class="nav-link" href="lesson.php">Edit Lesson</a>
-                                <a class="nav-link" href="sub-lesson.php">Edit Sub-Lesson</a>
+                                <a class="nav-link" href="editModule.php">Edit Module</a>
+                                <a class="nav-link" href="editLesson.php">Edit Lesson</a>
+                                <a class="nav-link" href="editSub.php">Edit Sub-Lesson</a>
 
                             </nav>
                         </div> -->
@@ -126,9 +127,100 @@ if (!isset($_SESSION['username'])) {
             <main>
                 <div class="container-fluid px-4 mt-4">
 
-
                     <div class="row">
+                        <div>
+                            <button type="button" class="btn btn-primary my-4" data-toggle="modal" data-target="#exampleModalCenter">
+                                Add Lesson
+                            </button>
+                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="text-info text-center py-4">Add Lesson</h3>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
 
+
+                                            <form action="./control/add.php" method="post" enctype="multipart/form-data">
+
+
+
+                                                <div class="form-group">
+                                                    <label for="lesson_id">Lesson_ID</label>
+                                                    <input type="text" class="form-control my-2" id="lesson_id" name="lesson_id" placeholder="lesson_id...">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="lesson_name">Lesson Name</label>
+                                                    <input type="text" class="form-control my-2" id="lesson_name" name="lesson_name" placeholder="lesson_name...">
+                                                </div>
+
+
+
+                                                <div class="form-group">
+                                                    <label for="inputState">State</label>
+                                                    <select id="inputState" class="form-control" name="status">
+                                                        <option value="lock" selected>lock</option>
+                                                        <option value="unlock">unlock</option>
+
+                                                        <option value="done">done</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="lesson_id">Module_ID</label>
+                                                    <input type="number" class="form-control my-2" id="module_id" name="module_id" placeholder="module_id...">
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="submit" name="addLesson" class="btn btn-primary my-2">Submit</button>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+                                                </div>
+
+
+
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- <div>
+                            <?php
+                            if (isset($_SESSION['success'])) {
+                            ?>
+                                <div class=" alert alert-warning alert-dismissible fade show" role="alert">
+                                    <h3 class="text-info  " id="success"><?= $_SESSION['success'] ?></h3>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+
+                                </div>
+
+                            <?php
+                            }
+                            ?>
+                            <?php
+                            if (isset($_SESSION['error'])) {
+                            ?>
+                                <div class=" alert alert-danger alert-dismissible fade show" role="alert">
+                                    <h3 class="text-info  " id="success"><?= $_SESSION['success'] ?></h3>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+
+                                </div>
+
+                            <?php
+                            }
+                            ?>
+                        </div> -->
 
 
                         <div class="card mb-4">
@@ -168,11 +260,8 @@ if (!isset($_SESSION['username'])) {
                                     </tfoot>
                                     <tbody>
                                         <?php if ($result->num_rows > 0) {
-                                            $arr1 = array();
-                                            $arr2 = array();
                                             while ($row = $result->fetch_assoc()) {
-                                                $arr2 = $row['lesson_id'];
-                                                array_push($arr1, $arr2);
+
                                         ?>
 
                                                 <tr>
@@ -182,18 +271,16 @@ if (!isset($_SESSION['username'])) {
                                                     <td><?php echo $row['module_id']; ?></td>
 
                                                     <td>
-                                                        <div class="d-flex"><a class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editLesson.php?id=<?= $row['lesson_id'] ?>#edit">Edit</a></div>
+                                                        <div class="d-flex"><a href="./control/delete.php?id=<?= $row['lesson_id'] ?>" onClick="return confirm('are you sure you want to delete this lesson?')" class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editLesson.php?id=<?= $row['lesson_id'] ?>#edit">Edit</a></div>
                                                     </td>
 
                                                 </tr>
                                         <?php
 
                                             }
-                                        } else {
-                                            echo "no records found";
                                         }
 
-
+                                        $conn->close();
                                         ?>
 
                                     </tbody>
@@ -201,100 +288,26 @@ if (!isset($_SESSION['username'])) {
                             </div>
                         </div>
                     </div>
-                    <div class="row">
 
-                        <div class="col-4"></div>
-                        <div class="col-4">
-                            <div class="card my-4 p-2">
-                                <div class="container justify-content-center align-items-center">
-                                    <?php
-
-
-
-                                    $id = $_GET['id'];
-                                    $sql = "SELECT * FROM les_tbl where lesson_id = $id;";
-                                    $result = $conn->query($sql);
-
-                                    if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-
-
-                                    ?>
-                                            <form action="./control/update.php" method="post" enctype="multipart/form-data" id="edit">
-
-
-                                                <h3 class="text-info text-center py-4">Edit Lesson</h3>
-
-                                                <div class="form-group">
-                                                    <label for="lesson_id">Lesson_ID</label>
-                                                    <input type="text" class="form-control my-2" id="lesson_name" value=<?= $row['lesson_id'] ?> name="lesson_id" placeholder="lesson_name...">
-                                                </div>
-
-
-                                                <div class="form-group">
-                                                    <label for="lesson_name">Lesson Name</label>
-                                                    <textarea placeholder="Lesson Name" class="form-control my-2" name="lesson_name"> <?php echo $row['lesson_name'] ?></textarea>
-
-                                                </div>
-
-
-
-                                                <div class="form-group">
-                                                    <label for="inputState">State</label>
-                                                    <select id="inputState" class="form-control" name="status">
-                                                        <option value="lock" selected>lock</option>
-                                                        <option value="unlock">unlock</option>
-
-                                                        <option value="done">done</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lesson_id">Module_ID</label>
-                                                    <input type="number" class="form-control my-2" id="module_id" value=<?= $row['module_id'] ?> name="module_id" placeholder="module_id...">
-                                                </div>
-
-
-                                                <div class="text-center">
-                                                    <button type="submit" name="updateLesson" class="btn btn-primary my-2">Submit</button>
-                                                </div>
-
-                                            </form>
-                                    <?php
-
-                                        }
-                                    }
-
-                                    $conn->close();
-                                    ?>
-                                </div>
-
+                    <footer class="py-4 bg-light mt-auto">
+                        <div class="container-fluid px-4">
+                            <div class="d-flex align-items-center justify-content-between small">
+                               
                             </div>
                         </div>
-                        <div class="col-4"></div>
-
-                    </div>
-            </main>
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; 2022 Basic Programming E-Learning Application</div>
-                        <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
-                        </div>
-                    </div>
+                    </footer>
                 </div>
-            </footer>
         </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="js/scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="assets/demo/chart-area-demo.js"></script>
-    <script src="assets/demo/chart-bar-demo.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script src="js/datatables-simple-demo.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="assets/demo/chart-area-demo.js"></script>
+        <script src="assets/demo/chart-bar-demo.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="js/datatables-simple-demo.js"></script>
 </body>
 
 </html>

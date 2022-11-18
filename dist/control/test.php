@@ -10,12 +10,13 @@ $choices2 = array();
 
 
 
-$sql = "SELECT quiz_tbl.`quiz_id`,  questions_tbl.`question_id`, quiz_tbl.`module_id`, questions_tbl.`time`, questions_tbl.`difficulty_level` ,questions_tbl.question_type, questions_tbl.`description` FROM quiz_tbl INNER JOIN questions_tbl ON questions_tbl.`quiz_id` = quiz_tbl.`quiz_id` ORDER BY RAND() ";
+$sql = "SELECT quizzes_tbl.`module_id`, quizzes_tbl.`quiz_id`, quizzes_tbl.`student_id`, questions_tbl.`description`, questions_tbl.`question_id`, questions_tbl.time,questions_tbl.`question_type`, questions_tbl.`difficulty_level`  FROM quizzes_tbl  INNER JOIN questions_tbl ON questions_tbl.`quiz_id` = quizzes_tbl.`quiz_id` ORDER BY RAND() ";
 $result = $conn->query($sql);
 
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
+        $arr2["student_id"] = $row['student_id'];
         $arr2["quiz_id"] = $row['quiz_id'];
         $arr2["module_id"] = $row["module_id"];
         $arr2["question_id"] = $row["question_id"];

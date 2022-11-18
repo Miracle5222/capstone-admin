@@ -21,6 +21,7 @@ if (!isset($_SESSION['username'])) {
     <meta name="author" content="" />
     <title>Dashboard - SB Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
@@ -125,7 +126,38 @@ if (!isset($_SESSION['username'])) {
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4 mt-4">
+                    <div class="row">
+                        <!-- <div>
+                            <?php
+                            if (isset($_SESSION['success'])) {
+                            ?>
+                                <div class=" alert alert-warning alert-dismissible fade show" role="alert">
+                                    <h3 class="text-info  " id="success"><?= $_SESSION['success'] ?></h3>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
 
+                                </div>
+
+                            <?php
+                            }
+                            ?>
+                            <?php
+                            if (isset($_SESSION['error'])) {
+                            ?>
+                                <div class=" alert alert-danger alert-dismissible fade show" role="alert">
+                                    <h3 class="text-info  " id="success"><?= $_SESSION['success'] ?></h3>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+
+                                </div>
+
+                            <?php
+                            }
+                            ?>
+                        </div> -->
+                    </div>
 
                     <div class="row">
 
@@ -134,11 +166,11 @@ if (!isset($_SESSION['username'])) {
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Lessons Table
+                                Questions Table
                             </div>
                             <?php
 
-                            $sql = "SELECT * from les_tbl";
+                            $sql = "SELECT * from questions_tbl";
                             $result = $conn->query($sql);
 
 
@@ -151,19 +183,21 @@ if (!isset($_SESSION['username'])) {
 
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">Lesson_name</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Module_ID</th>
-                                            <th scope="col">Edit</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Time</th>
+                                            <th scope="col">Quiz ID</th>
+                                            <th scope="col">Level</th>
+                                            <th scope="col">Question Type</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">Lesson_name</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Module_ID</th>
-                                            <th scope="col">Edit</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Time</th>
+                                            <th scope="col">Quiz ID</th>
+                                            <th scope="col">Level</th>
+                                            <th scope="col">Question Type</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -171,18 +205,20 @@ if (!isset($_SESSION['username'])) {
                                             $arr1 = array();
                                             $arr2 = array();
                                             while ($row = $result->fetch_assoc()) {
-                                                $arr2 = $row['lesson_id'];
+                                                $arr2 = $row['question_id'];
                                                 array_push($arr1, $arr2);
                                         ?>
 
                                                 <tr>
-                                                    <th scope="row"><?php echo $row['lesson_id']; ?></th>
-                                                    <td><?php echo $row['lesson_name']; ?></td>
-                                                    <td><?php echo $row['status']; ?></td>
-                                                    <td><?php echo $row['module_id']; ?></td>
+                                                    <th scope="row"><?php echo $row['question_id']; ?></th>
+                                                    <td><?php echo $row['description']; ?></td>
+                                                    <td><?php echo $row['time']; ?></td>
+                                                    <td><?php echo $row['quiz_id']; ?></td>
+                                                    <td><?php echo $row['difficulty_level']; ?></td>
+                                                    <td><?php echo $row['question_type']; ?></td>
 
                                                     <td>
-                                                        <div class="d-flex"><a class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editLesson.php?id=<?= $row['lesson_id'] ?>#edit">Edit</a></div>
+                                                        <div class="d-flex"><a onClick="return confirm('are you sure you want to delete this question?')" href="./control/delete.php?question_id=<?= $row['question_id']; ?>" class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editQuestions.php?id=<?= $row['question_id'] ?>#edit">Edit</a></div>
                                                     </td>
 
                                                 </tr>
@@ -204,6 +240,7 @@ if (!isset($_SESSION['username'])) {
                     <div class="row">
 
                         <div class="col-4"></div>
+
                         <div class="col-4">
                             <div class="card my-4 p-2">
                                 <div class="container justify-content-center align-items-center">
@@ -212,7 +249,7 @@ if (!isset($_SESSION['username'])) {
 
 
                                     $id = $_GET['id'];
-                                    $sql = "SELECT * FROM les_tbl where lesson_id = $id;";
+                                    $sql = "SELECT * from questions_tbl where question_id = '$id';";
                                     $result = $conn->query($sql);
 
                                     if ($result->num_rows > 0) {
@@ -221,55 +258,77 @@ if (!isset($_SESSION['username'])) {
 
                                     ?>
                                             <form action="./control/update.php" method="post" enctype="multipart/form-data" id="edit">
+                                                <h3 class="text-info text-center py-4">Edit Questions</h3>
+                                                <!-- <div class="form-group">
+
+                                                    <label for="title">Module_ID</label>
+                                                    <select id="inputState" class="form-control" name="module_id">
+                                                        <?php
+                                                        foreach ($arr1 as $value) :
+                                                        ?>
 
 
-                                                <h3 class="text-info text-center py-4">Edit Lesson</h3>
-
-                                                <div class="form-group">
-                                                    <label for="lesson_id">Lesson_ID</label>
-                                                    <input type="text" class="form-control my-2" id="lesson_name" value=<?= $row['lesson_id'] ?> name="lesson_id" placeholder="lesson_name...">
-                                                </div>
-
-
-                                                <div class="form-group">
-                                                    <label for="lesson_name">Lesson Name</label>
-                                                    <textarea placeholder="Lesson Name" class="form-control my-2" name="lesson_name"> <?php echo $row['lesson_name'] ?></textarea>
-
-                                                </div>
+                                                            <option value="<?= $value ?> " selected><?= $value ?></option>
 
 
 
-                                                <div class="form-group">
-                                                    <label for="inputState">State</label>
-                                                    <select id="inputState" class="form-control" name="status">
-                                                        <option value="lock" selected>lock</option>
-                                                        <option value="unlock">unlock</option>
-
-                                                        <option value="done">done</option>
+                                                        <?php
+                                                        endforeach;
+                                                        ?>
                                                     </select>
+                                                </div> -->
+                                                <div class="form-group">
+                                                    <label for="module_id">Question ID</label>
+                                                  
+                                                
+                                                    <input type="text" class="form-control" value=<?= $row['question_id'] ?> name="question_id" placeholder="question_id...">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="lesson_id">Module_ID</label>
-                                                    <input type="number" class="form-control my-2" id="module_id" value=<?= $row['module_id'] ?> name="module_id" placeholder="module_id...">
+                                                    <label for="module_id">Quiz_ID</label>
+
+                                                    <input type="text" class="form-control" value=<?= $row['quiz_id'] ?> name="quiz_id" placeholder="quiz_id...">
                                                 </div>
+                                                <div class="form-group">
+                                                    <label for="module_id">Description</label>
+                                                    <textarea type="text" placeholder="description..." class="form-control my-2" name="description" rows="4"> <?php echo $row['description'] ?></textarea>
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="module_id">time</label>
+
+                                                    <input type="number" class="form-control" value=<?= $row['time'] ?> name="time" placeholder="time...">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="title">Level</label>
+                                                    <input type="text" class="form-control" value=<?= $row['difficulty_level'] ?> name="difficulty_level" placeholder="time...">
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="title">Question Type</label>
+                                                    <textarea type="text" placeholder="type..." class="form-control my-2" name="question_type"> <?php echo $row['question_type'] ?></textarea>
+
+                                                </div>
+
+
 
 
                                                 <div class="text-center">
-                                                    <button type="submit" name="updateLesson" class="btn btn-primary my-2">Submit</button>
+                                                    <button type="submit" name="questionsUpdate" class="btn btn-primary my-2">Update</button>
                                                 </div>
-
                                             </form>
                                     <?php
 
                                         }
+                                    } else {
+                                        echo "no records found";
                                     }
 
                                     $conn->close();
                                     ?>
                                 </div>
-
                             </div>
                         </div>
+
                         <div class="col-4"></div>
 
                     </div>
@@ -288,6 +347,9 @@ if (!isset($_SESSION['username'])) {
             </footer>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

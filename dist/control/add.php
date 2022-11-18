@@ -183,9 +183,9 @@ if (isset($_POST['addChoices'])) {
     $answer = $_POST['answer'];
     $choice_description = $_POST['choice_description'];
     $questions_id = $_POST['questions_id'];
-    echo   $answer;
-    echo   $choice_description;
-    echo   $questions_id;
+    // echo   $answer;
+    // echo   $choice_description;
+    // echo   $questions_id;
 
     if (!empty($answer) && !empty($choice_description) && !empty($questions_id)) {
 
@@ -204,5 +204,29 @@ if (isset($_POST['addChoices'])) {
             $_SESSION['error'] = "Failed to upload file";
             header("Location: ../quiz.php");
         }
+    }
+}
+
+if (isset($_POST['addLessons'])) {
+    $student_id = $_GET['student_id'];
+    $module_id = $_POST['module_id'];
+    $lesson = $_POST['lesson'];
+    $lesson_name = $_POST['lesson_name'];
+    $status = $_POST['status'];
+
+
+
+
+    $sql = "insert into les_tbl (lessons,lesson_name,status,module_id)values('$lesson','$lesson_name','$status','$module_id')";
+    $result = $conn->query($sql);
+
+    if ($result) {
+
+        $_SESSION['success'] = "Data inserted Successfully";
+        header("Location: ../addModuleAll.php?student_id=$student_id");
+    } else {
+
+        $_SESSION['error'] = "Failed to add file";
+        header("Location: ../addModuleAll.php?student_id=$student_id");
     }
 }

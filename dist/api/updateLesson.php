@@ -74,7 +74,7 @@ if ($score + 1 < $questionLength - 2) {
 
 // }
 
-$sql = "update lesson_tbl set status = 'done' where lesson_id = '$lesson_id'  ";
+$sql = "update les_tbl set status = 'done' where lessons = '$lesson_id'  ";
 $result = $conn->query($sql);
 
 
@@ -84,13 +84,13 @@ if ($result) {
     $id = $lesson_id;
     $id += .1;
 
-    $selectUpdate = "select * from lesson_tbl where lesson_id = '$id'";
+    $selectUpdate = "select * from les_tbl where lessons = '$id'";
     $selectUpdateResult = $conn->query($selectUpdate);
 
     if ($selectUpdateResult->num_rows > 0) {
         while ($row = $selectUpdateResult->fetch_assoc()) {
             if ($row['status'] != "done") {
-                $sqls = "update lesson_tbl set status = 'unlock' where lesson_id = '$id'  ";
+                $sqls = "update les_tbl set status = 'unlock' where lessons = '$id'  ";
                 $results = $conn->query($sqls);
                 if ($results) {
                     $Message['data'] = array("message" => "Unlock Status");

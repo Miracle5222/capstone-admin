@@ -1,29 +1,13 @@
-package api;
-import java.util.Scanner;
+public class Main { public static void main(String[] args) {
 
-public class Main
-{
+ int  n [] = {98,89,88,86,90,100};
+int len = n.length;
 
-  public static void main (String[] args)
-  {
-    // create a scanner so we can read the command-line input
-    Scanner scanner = new Scanner(System.in);
+int sum = 0;
 
-    //  prompt for the user's name
-    System.out.print("Enter your name: ");
-
-    // get their input as a String
-    String username = scanner.next();
-
-    // prompt for their age
-    System.out.print("Enter your age: ");
-
-    // get the age as an int
-    int age = scanner.nextInt();
-
-    System.out.println(String.format("%s, your age is %d", username, age));
-
-    scanner.close();
-  }
-
+for(int i = 0; i < len; i++){
+sum += n[i];
 }
+System.out.println(sum / len);
+
+ } }
