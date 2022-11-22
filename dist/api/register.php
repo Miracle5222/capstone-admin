@@ -69,9 +69,9 @@ if (mysqli_num_rows($result) > 0) {
                 $GLOBALS['modules'] = $latest['programming_id'];
 
                 if ($languagesResult->num_rows > 0) {
+
                     $allModules = "SELECT * FROM modules_tbl GROUP BY title ORDER BY module_id";
                     $resultallModules = $conn->query($allModules);
-
                     if ($resultallModules->num_rows > 0) {
 
                         while ($rowModules = $resultallModules->fetch_assoc()) {
@@ -79,72 +79,34 @@ if (mysqli_num_rows($result) > 0) {
                             $modulesResult = $conn->query($insertStudentModules);
                             if ($modulesResult) {
 
-                                array_push($Error,  array("registered" => "Added modules to " . $latest['programming_id'] . "ID : Module_id" . $rowModules['module_id']));
+
+                                array_push($Error,  array("registered" => "Module_id added"));
                             } else {
-                                array_push($Error,  array("registered" => "Failed to add modules " . $latest['programming_id'] . "ID"));
+                                // array_push($Error,  array("registered" => "Failed to add modules " . $latest['programming_id'] . "ID"));
+                            }
+                        }
+
+                        $updateModule = "update modules_tbl set status = 'lock' where programming_id = '$GLOBALS[modules]' ";
+                        //set new modules  status to lock
+                        if ($conn->query($updateModule) === TRUE) {
+                            $unlockModule = "update modules_tbl set status = 'unlock'WHERE title = 'Introduction' ";
+                            //unlock module status where title = Introduction
+                            if ($conn->query($unlockModule) === TRUE) {
+
+                                $selectModules = "select * from modules_tbl where programming_id =  '$GLOBALS[modules]' group by title order by module_id";
+                                $selectModulesResult = $conn->query($selectModules);
+                                if ($selectModulesResult->num_rows > 0) {
+
+                                    while ($rowModules = $selectModulesResult->fetch_assoc()) {
+                                        // array_push($Error,  array("registered" => $rowModules['module_id']));
+
+                                    }
+                                }
                             }
                         }
                     }
-
-
-                    // // $lessons = "SELECT * FROM les_tbl GROUP BY lessons ORDER BY lessons";
-                    // // $lessonData = $conn->query($lessons);
-                    // $sqlModule = "select * from modules_tbl where programming_id =  '$GLOBALS[modules]'";
-                    // $moduleData = $conn->query($sqlModule);
-                    // if ($moduleData->num_rows > 0) {
-                    //     while ($moduleRows = $moduleData->fetch_assoc()) {
-                    //         $array2['module_id'] = $moduleRows['module_id'];
-                    //         array_push($array1, $array2);
-                    //         // array_push($Error,  array("registered" => $moduleRows['programming_id'] . "programmingID === new moduleID " . $moduleRows['module_id']));
-                    //         // while ($lessonRow = $lessonData->fetch_assoc()) {
-                    //         //     $insertLesson = "insert into les_tbl (lesson_name,status,module_id,lessons)values('$lessonRow[lesson_name]','$status[status]','$moduleRows[module_id]','$lessonRow[lessons]')";
-                    //         //     if ($conn->query($insertLanguage) === TRUE) {
-                    //         //         array_push($Error,  array("registered" => "lesson added"));
-                    //         //     }
-                    //         // }
-                    //     }
-                    // }
-                    // foreach ($array1 as $module) :
-                    //     $lessons = "SELECT * FROM les_tbl where module_id = $module[module_id]";
-                    //     $lessonData = $conn->query($lessons);
-                    //     if ($lessonData->num_rows > 0) {
-                    //         while ($lessonRow = $lessonData->fetch_assoc()) {
-                    //             // $insertLesson = "insert into les_tbl (lesson_name,status,module_id,lessons)values('$lessonRow[lesson_name]','$status[status]','$moduleRows[module_id]','$lessonRow[lessons]')";
-                    //             // if ($conn->query($insertLanguage) === TRUE) {
-
-                    //             array_push($Error,  array("registered" =>  "new moduleID " . $module['module_id'] . "lessons=> " . $lessonRow['lessons']));
-                    //             // }
-                    //         }
-                    //     }
-
-                    // endforeach;
-
-                    // if ($moduleData->num_rows > 0) {
-                    //     while ($moduleRows = $moduleData->fetch_assoc()) {
-                    //         $array2['module_id'] = $moduleRows['module_id'];
-                    //         // array_push($array1, $array2);
-                    //         array_push($Error,  array("registered" => $moduleRows['programming_id'] . "programmingID === new moduleID " . $moduleRows['module_id']));
-                    //         // while ($lessonRow = $lessonData->fetch_assoc()) {
-                    //         //     $insertLesson = "insert into les_tbl (lesson_name,status,module_id,lessons)values('$lessonRow[lesson_name]','$status[status]','$moduleRows[module_id]','$lessonRow[lessons]')";
-                    //         //     if ($conn->query($insertLanguage) === TRUE) {
-                    //         //         array_push($Error,  array("registered" => "lesson added"));
-                    //         //     }
-                    //         // }
-                    //     }
-                    // }
-
-
-
-                    // if ($lessonData->num_rows > 0) {
-                    //     while ($lessonRow = $lessonData->fetch_assoc()) {
-                    //         // $insertLesson = "insert into les_tbl (lesson_name,status,module_id,lessons)values('$lessonRow[lesson_name]','$status[status]','$moduleRows[module_id]','$lessonRow[lessons]')";
-                    //         // if ($conn->query($insertLanguage) === TRUE) {
-
-                    //         array_push($Error,  array("registered" =>  "new moduleID " . $GLOBALS['modules'] . "lessons=> " . $lessonRow['lessons']));
-                    //         // }
-                    //     }
-                    // }
                 }
+
 
                 // array_push($Error,  array("registered" => $latest['programming_id'] . " " . $GLOBALS['modules']));
                 // array_push($Error,  array("registered" => $latest['programming_id'] . " " . $GLOBALS['modules']));
@@ -153,7 +115,7 @@ if (mysqli_num_rows($result) > 0) {
     } else {
         // echo "Error: " . $sql . "<br>" . $conn->error;
         $Message['data'] = "Something wrong with the server";
-        array_push($Error,  array("error" => "omething wrong with the server"));
+        array_push($Error,  array("error" => "something wrong with the server"));
     }
     //do your insert code here or do something (run your code)
 }

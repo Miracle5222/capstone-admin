@@ -141,7 +141,7 @@ if (!isset($_SESSION['username'])) {
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="./control/add.php" method="post" enctype="multipart/form-data">
+                                            <form action="./control/add.php?id=<?= $_GET['id'] ?>" method="post" enctype="multipart/form-data">
 
 
 
@@ -164,7 +164,7 @@ if (!isset($_SESSION['username'])) {
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="lesson_id">lesson_ID</label>
-                                                    <input type="text" class="form-control" id="lesson_id" name="lesson_id" placeholder="Lesson_id...">
+                                                    <input type="text" class="form-control" id="lesson_id" name="lesson_id" value="<?= $_GET['id'] ?>" placeholder="Lesson_id...">
                                                 </div>
 
                                                 <div class="modal-footer">
@@ -268,102 +268,47 @@ if (!isset($_SESSION['username'])) {
                                                     <td><?php echo $row['paragraph']; ?></td>
                                                     <td>
 
-                                                        <div class="d-flex"><a onClick="return confirm('are you sure you want to delete this file?')" href="./control/delete.php?id=<?= $row['sub_lesson_id']; ?>" class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editSub.php?id=<?= $row['sub_lesson_id'] ?>#edit">Edit</a></div>
+                                                        <div class="d-flex">
+                                                            <a onClick="return confirm('are you sure you want to delete this file?')" href="./control/delete.php?id=<?= $row['sub_lesson_id']; ?>" class="btn btn-danger mx-2 text-white">Delete</a>
+                                                            <a class="btn btn-info mx-2 text-white" href="editSub.php?id=<?= $row['sub_lesson_id'] ?>#edit">Edit</a>
+                                                            <a class="btn btn-info mx-2 text-white" href="code.php?id=<?= $row['sub_lesson_id'] ?>#edit">Add Snippets</a>
+                                                        </div>
 
-                                                    </td>
+                            </div>
+                            </td>
 
-                                                </tr>
-                                        <?php
+                            </tr>
+                    <?php
 
                                             }
                                         }
 
 
-                                        ?>
+                    ?>
 
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="card">
-
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-table me-1"></i>
-                                    Snippets
-                                </div>
-                                <?php
-
-                                $sql = "SELECT * FROM CODE;";
-                                $result = $conn->query($sql);
-
-
-
-
-                                ?>
-                                <div class="card-body">
-                                    <table id="datatablesSimple" class="table">
-                                        <thead>
-
-                                            <tr>
-                                                <th scope="col">ID</th>
-                                                <th scope="col">Language</th>
-                                                <th scope="col">Snippets</th>
-                                                <th scope="col">Sub_Lesson_ID</th>
-
-
-                                                <th scope="col">Edit</th>
-                                            </tr>
-                                        </thead>
-
-
-                                        <tbody>
-                                            <?php if ($result->num_rows > 0) {
-                                                while ($row = $result->fetch_assoc()) {
-                                            ?>
-
-                                                    <tr>
-                                                        <th scope="row"><?php echo $row['snippets_id']; ?></th>
-                                                        <td><?php echo $row['language']; ?></td>
-                                                        <td><?php echo $row['textCode']; ?></td>
-                                                        <td><?php echo $row['sub_lesson_id']; ?></td>
-
-                                                        <td>
-                                                            <div class="d-flex"><a onClick="return confirm('are you sure you want to delete this file?')" href="./control/delete.php?snippets_id=<?= $row['snippets_id']; ?>" class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editCode.php?id=<?= $row['snippets_id'] ?>#edit">Edit</a></div>
-                                                        </td>
-
-                                                    </tr>
-                                            <?php
-
-                                                }
-                                            }
-
-
-                                            ?>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-            </main>
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; 2022 Basic Programming E-Learning Application</div>
-                        <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
+                    </tbody>
+                    </table>
                         </div>
                     </div>
                 </div>
-            </footer>
+
+
         </div>
+
+        </main>
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; 2022 Basic Programming E-Learning Application</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
     </div>
     <script>
         $(".button").click(function() {

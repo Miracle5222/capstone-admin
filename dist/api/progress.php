@@ -18,7 +18,7 @@ $student_id = $obj['student_id'];
 
 
 
-$sql = "SELECT les_tbl.`module_id`, les_tbl.`lesson_id`, les_tbl.`lessons`, les_tbl.`lesson_name`, les_tbl.`status` FROM programming_language_tbl INNER JOIN modules_tbl ON modules_tbl.programming_id = programming_language_tbl.programming_id INNER JOIN les_tbl ON les_tbl.`module_id` = modules_tbl.module_id WHERE programming_language_tbl.student_id = '$student_id'";
+$sql = "SELECT les_tbl.`module_id`, les_tbl.`lesson_id`, les_tbl.`lessons`, les_tbl.`lesson_name`, les_tbl.`status` FROM programming_language_tbl INNER JOIN modules_tbl ON modules_tbl.programming_id = programming_language_tbl.programming_id INNER JOIN les_tbl ON les_tbl.`module_id` = modules_tbl.module_id WHERE programming_language_tbl.student_id = '$student_id'  ";
 $result = $conn->query($sql);
 
 

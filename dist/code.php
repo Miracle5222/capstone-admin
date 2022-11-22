@@ -181,7 +181,7 @@ if (!isset($_SESSION['username'])) {
                                                     <td><?php echo $row['lesson_id']; ?></td>
                                                     <td><?php echo $row['paragraph']; ?></td>
                                                     <td>
-                                                        <div class="d-flex"><a onClick="return confirm('are you sure you want to delete this file?')" href="./control/delete.php?id=<?= $row['sub_lesson_id']; ?>" class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editSub.php?id=<?= $row['sub_lesson_id'] ?>#edit">Edit</a></div>
+                                                        <div class="d-flex"><a onClick="return confirm('are you sure you want to delete this file?')" href="./control/delete.php?id=<?= $row['sub_lesson_id']; ?>" class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editSub.php?id=<?= $row['sub_lesson_id'] ?>#edit">Edit</a> <a class="btn btn-info mx-2 text-white" href="code.php?id=<?= $row['sub_lesson_id'] ?>#edit">Add Snippets</a></div>
                                                     </td>
 
                                                 </tr>
@@ -271,7 +271,7 @@ if (!isset($_SESSION['username'])) {
                             <div class="card my-4 p-2">
                                 <div class="container justify-content-center align-items-center">
 
-                                    <form action="./control/add.php" method="post" enctype="multipart/form-data">
+                                    <form action="./control/add.php" method="post" enctype="multipart/form-data" id="edit">
 
 
                                         <h3 class="text-info text-center py-4">Add Snippets</h3>
@@ -287,7 +287,11 @@ if (!isset($_SESSION['username'])) {
                                         </div>
                                         <div class="form-group">
                                             <label for="sub_lesson_id">lesson_ID</label>
-                                            <input type="text" class="form-control" id="sub_lesson_id" name="sub_lesson_id" placeholder="sub_lesson_id...">
+                                            <?php if (isset($_GET['id'])) { ?>
+                                                <input type="text" class="form-control" id="sub_lesson_id" name="sub_lesson_id" value="<?= $_GET['id'] ?>" placeholder="sub_lesson_id...">
+                                            <?php } else { ?>
+                                                <input type="text" class="form-control" id="sub_lesson_id" name="sub_lesson_id" placeholder="sub_lesson_id...">
+                                            <?php } ?>
                                         </div>
 
 

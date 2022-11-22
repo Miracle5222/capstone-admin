@@ -47,8 +47,8 @@ if (!isset($_SESSION['username'])) {
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">Settings</a></li>
-                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                    <li><a class="dropdown-item" href="./adminProfile.php">Profile</a></li>
+
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
@@ -186,102 +186,149 @@ if (!isset($_SESSION['username'])) {
 
 
                     </div>
+
+
+
                     <div class="row">
-                        <div class="col-xl-6">
-                            <!-- <div class="card mb-4">
+                        <div class="col-md-9">
+                            <div class="card ">
                                 <div class="card-header">
-                                    <i class="fas fa-chart-area me-1"></i>
-                                    Area Chart Example
+                                    <i class="fas fa-table me-1"></i>
+                                    All Students
                                 </div>
-                                <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                            </div> -->
-                        </div>
-                        <div class="col-xl-6">
-                            <!-- <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-chart-bar me-1"></i>
-                                    Bar Chart Example
-                                </div>
-                                <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                            </div> -->
-                        </div>
-                    </div>
+                                <?php
 
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-table me-1"></i>
-                            All Students
-                        </div>
-                        <?php
-
-                        $sql = "SELECT student_tbl.`student_id`, student_tbl.`username`, student_tbl.`email`, student_tbl.`password` , programming_language_tbl.name FROM student_tbl INNER JOIN programming_language_tbl ON programming_language_tbl.`student_id` = student_tbl.`student_id`                        ";
-                        $result = $conn->query($sql);
+                                $sql = "SELECT student_tbl.`student_id`, student_tbl.`username`, student_tbl.`email`, student_tbl.`password` , programming_language_tbl.name FROM student_tbl INNER JOIN programming_language_tbl ON programming_language_tbl.`student_id` = student_tbl.`student_id`                        ";
+                                $result = $conn->query($sql);
 
 
 
-                        ?>
-                        <div class="card-body">
-                            <table id="datatablesSimple">
-                                <thead>
-
-                                    <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Username</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Password</th>
-                                        <th scope="col">Programming Languages</th>
-                                        <th scope="col">Edit</th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Username</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Password</th>
-                                        <th scope="col">Programming Languages</th>
-                                        <th scope="col">Edit</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                    <?php if ($result->num_rows > 0) {
-                                        $arr1 = array();
-                                        $arr2 = array();
-
-
-                                        while ($row = $result->fetch_assoc()) {
-                                            $arr2 = $row['student_id'];
-                                            array_push($arr1, $arr2);
-                                    ?>
+                                ?>
+                                <div class="card-body">
+                                    <table id="datatablesSimple">
+                                        <thead>
 
                                             <tr>
-                                                <th scope="row"><?php echo $row['student_id']; ?></th>
-                                                <td><?php echo $row['username']; ?></td>
-                                                <td><?php echo $row['email']; ?></td>
-                                                <td><?php echo $row['password']; ?></td>
-                                                <td><?php echo $row['name']; ?></td>
-                                                <td>
-                                                    <div class="d-flex">
-                                                        <a href="./control/delete.php?student_id=<?= $row['student_id'] ?>" onClick="return confirm('are you sure you want to remove this student?')" class="btn btn-danger mx-2 text-white">Delete</a>
-                                                        <a class="btn btn-info mx-2 text-white" href="editStudents.php?student_id=<?= $row['student_id'] ?>#edit">Edit</a>
-                                                        <a href="./addModuleAll.php?student_id=<?= $row['student_id'] ?>" class="btn btn-dark mx-2 text-white">Manage Modules</a>
-                                                    </div>
-                                                </td>
-
+                                                <th scope="col">ID</th>
+                                                <th scope="col">Username</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Password</th>
+                                                <th scope="col">Programming Languages</th>
+                                                <th scope="col">Edit</th>
                                             </tr>
-                                    <?php
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">Username</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Password</th>
+                                                <th scope="col">Programming Languages</th>
+                                                <th scope="col">Edit</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            <?php if ($result->num_rows > 0) {
+                                                $arr1 = array();
+                                                $arr2 = array();
 
+
+                                                while ($row = $result->fetch_assoc()) {
+                                                    $arr2 = $row['student_id'];
+                                                    array_push($arr1, $arr2);
+                                            ?>
+
+                                                    <tr>
+                                                        <th scope="row"><?php echo $row['student_id']; ?></th>
+                                                        <td><?php echo $row['username']; ?></td>
+                                                        <td><?php echo $row['email']; ?></td>
+                                                        <td><?php echo $row['password']; ?></td>
+                                                        <td><?php echo $row['name']; ?></td>
+                                                        <td>
+                                                            <div class="d-flex">
+                                                                <a href="./control/delete.php?student_id=<?= $row['student_id'] ?>" onClick="return confirm('are you sure you want to remove this student?')" class="btn btn-danger mx-2 text-white">Delete</a>
+                                                                <a class="btn btn-info mx-2 text-white" href="editStudents.php?student_id=<?= $row['student_id'] ?>#edit">Edit</a>
+                                                                <a href="./addModuleAll.php?student_id=<?= $row['student_id'] ?>" class="btn btn-dark mx-2 text-white">Modules</a>
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+                                            <?php
+
+                                                }
+                                                $_SESSION['student_ids'] = $arr1;
+                                            } else {
+                                                echo "no records found";
+                                            }
+
+                                            ?>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card border-0">
+                                <h2 class="text-light bg-primary p-4">Quiz Results</h2>
+                                <?php
+
+                                $sql = "select * from result ";
+                                $result = $conn->query($sql);
+
+
+
+                                ?>
+                                <table id="datatablesSimple" class="table table-stripe">
+                                    <thead>
+
+                                        <tr>
+                                            <th scope="col">Student ID</th>
+                                            <th scope="col">Quiz ID</th>
+                                            <th scope="col">Status</th>
+
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <?php if ($result->num_rows > 0) {
+                                            $arr1 = array();
+                                            $arr2 = array();
+
+
+                                            while ($row = $result->fetch_assoc()) {
+                                                $arr2 = $row['student_id'];
+                                                array_push($arr1, $arr2);
+                                        ?>
+
+                                                <tr>
+                                                    <th scope="row"><?php echo $row['student_id']; ?></th>
+                                                    <td><?php echo $row['quiz_id']; ?></td>
+                                                    <?php if ($row['status'] === "Failed") { ?>
+                                                        <td class="text-danger"><?php echo $row['status']; ?></td>
+                                                    <?php } else { ?>
+                                                        <td class="text-success"><?php echo $row['status']; ?></td>
+                                                    <?php  } ?>
+
+
+
+
+                                                </tr>
+                                        <?php
+
+                                            }
+                                            $_SESSION['student_ids'] = $arr1;
+                                        } else {
+                                            echo "no records found";
                                         }
-                                        $_SESSION['student_ids'] = $arr1;
-                                    } else {
-                                        echo "no records found";
-                                    }
 
-                                    $conn->close();
-                                    ?>
+                                        $conn->close();
+                                        ?>
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
                     </div>
                 </div>

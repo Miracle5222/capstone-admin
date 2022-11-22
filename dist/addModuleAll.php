@@ -445,7 +445,11 @@ if (!isset($_SESSION['username'])) {
 
 
                                                         <td>
-                                                            <div class="d-flex"><a href="./control/deleteLesson.php?lessons_id=<?= $row['lesson_id'] ?>&student_id=<?= $_GET['student_id'] ?>" onClick="return confirm('are you sure you want to delete this lesson <?= $row['lesson_id'] ?> ?')" class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editLesson.php?id=<?= $row['lesson_id'] ?>#edit">Edit</a></div>
+                                                            <div class="d-flex">
+                                                                <a href="./control/deleteLesson.php?lessons_id=<?= $row['lesson_id'] ?>&student_id=<?= $_GET['student_id'] ?>" onClick="return confirm('are you sure you want to delete this lesson <?= $row['lesson_id'] ?> ?')" class="btn btn-danger mx-2 text-white">Delete</a>
+                                                                <a class="btn btn-info mx-2 text-white" href="editLesson.php?id=<?= $row['lesson_id'] ?>#edit">Edit</a>
+                                                                <a class="btn btn-info mx-2 text-white" href="sub-lesson.php?id=<?= $row['lesson_id'] ?>#edit">Add Content</a>
+                                                            </div>
                                                         </td>
 
                                                     </tr>

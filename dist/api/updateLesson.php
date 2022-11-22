@@ -15,6 +15,10 @@ $obj = json_decode($json, true);
 // score: score,
 // student_id: currStudent_id,
 // quiz_id: quiz_id,
+date_default_timezone_set('Asia/Calcutta');
+
+$script_tz = date_default_timezone_get();
+strcmp($script_tz, ini_get('date.timezone'));
 
 $lesson_id = $obj['lesson_id'];
 $module_id = $obj['module_id'];
@@ -25,13 +29,14 @@ $score = $obj['score'];
 
 $status = "";
 $dateToday = date("h:i:s");
+
 $selectQuestions = "select count(question_id) as length from questions_tbl where quiz_id = '$quiz_id'";
 $selectQueryQuestions = $conn->query($selectQuestions);
 $questionsResult = $selectQueryQuestions->fetch_assoc();
 
 $questionLength = $questionsResult['length'];
 $selectQuiz = "";
-if ($score + 1 < $questionLength - 2) {
+if (($score * 100) / $questionLength  < 80) {
     $status = "Failed";
 
     $selectQuiz = "insert into result (quiz_id,student_id,score,ended_at,status) values ('$quiz_id','$student_id','$score','$dateToday','$status')";

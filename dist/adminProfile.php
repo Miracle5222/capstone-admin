@@ -22,8 +22,8 @@ if (!isset($_SESSION['username'])) {
     <title>Dashboard - SB Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 </head>
 
 <body class="sb-nav-fixed">
@@ -48,8 +48,8 @@ if (!isset($_SESSION['username'])) {
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">Settings</a></li>
-                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                    <li><a class="dropdown-item" href="./adminProfile.php">Profile</a></li>
+
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
@@ -126,177 +126,81 @@ if (!isset($_SESSION['username'])) {
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4 mt-4">
-                    <div class="row">
-                        <!-- <div>
-                            <?php
-                            if (isset($_SESSION['success'])) {
-                            ?>
-                                <div class=" alert alert-warning alert-dismissible fade show" role="alert">
-                                    <h3 class="text-info  " id="success"><?= $_SESSION['success'] ?></h3>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
 
-                                </div>
 
-                            <?php
-                            }
-                            ?>
-                            <?php
-                            if (isset($_SESSION['error'])) {
-                            ?>
-                                <div class=" alert alert-danger alert-dismissible fade show" role="alert">
-                                    <h3 class="text-info  " id="success"><?= $_SESSION['success'] ?></h3>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-
-                                </div>
-
-                            <?php
-                            }
-                            ?>
-
-                        </div> -->
-                    </div>
 
                     <div class="row">
 
-
-
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                Sub Lesson Table
-                            </div>
-                            <?php
-
-                            $sql = "SELECT * from sub_lesson_tbl";
-                            $result = $conn->query($sql);
-
-
-
-
-                            ?>
-                            <div class="card-body" id="table">
-                                <table id="datatablesSimple">
-                                    <thead>
-
-                                        <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Video_ID</th>
-                                            <th scope="col">Image</th>
-                                            <th scope="col">heading</th>
-                                            <th scope="col">lesson_ID</th>
-                                            <th scope="col">Paragraph</th>
-                                            <th scope="col">Edit</th>
-                                        </tr>
-                                    </thead>
-
-
-                                    <tbody>
-                                        <?php if ($result->num_rows > 0) {
-                                            while ($row = $result->fetch_assoc()) {
-                                        ?>
-
-                                                <tr>
-                                                    <th scope="row"><?php echo $row['sub_lesson_id']; ?></th>
-                                                    <td><?php echo $row['video']; ?></td>
-                                                    <td><?php echo $row['image']; ?></td>
-
-                                                    <td><?php echo $row['heading']; ?></td>
-                                                    <td><?php echo $row['lesson_id']; ?></td>
-                                                    <td><?php echo $row['paragraph']; ?></td>
-                                                    <td>
-                                                        <div class="d-flex">
-                                                            <div class="d-flex"><a onClick="return confirm('are you sure you want to delete this file?')" href="./control/delete.php?id=<?= $row['sub_lesson_id']; ?>" class="btn btn-danger mx-2 text-white">Delete</a><a class="btn btn-info mx-2 text-white" href="editSub.php?id=<?= $row['sub_lesson_id'] ?>#edit">Edit</a> <a class="btn btn-info mx-2 text-white" href="editSub.php?id=<?= $row['sub_lesson_id'] ?>#edit">Add Snippets</a></div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-                                        <?php
-
-                                            }
-                                        } else {
-                                            echo "no records found";
-                                        }
-
-
-                                        ?>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-
-
-                    </div>
-                    <div class="row ">
                         <div class="col-4"></div>
                         <div class="col-4">
+                            <?php if (isset($_GET['message']) && isset($_GET['status'])) { ?>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong><?= $_GET['message'] ?></strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            <?php  } ?>
+
                             <div class="card my-4 p-2">
                                 <div class="container justify-content-center align-items-center">
                                     <?php
-                                    $id = $_GET['id'];
-                                    $sql = "SELECT * FROM sub_lesson_tbl where sub_lesson_id = $id;";
+
+
+                                    $sql = "SELECT * from admin_tbl where id = '$_SESSION[id]'";
                                     $result = $conn->query($sql);
+
 
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
 
 
                                     ?>
-                                            <form action="./control/update.php" method="post" id="edit" enctype="multipart/form-data">
-                                                <h3 class="text-info text-center py-4">Update Sub_Lesson</h3>
+                                            <form action="./control/update.php?ID=" method="post" enctype="multipart/form-data">
 
+
+                                                <h3 class="text-info text-center py-4">Admin Profile</h3>
                                                 <div class="form-group">
-                                                    <label for="video_id">Sub_Lesson_ID</label>
-                                                    <input type="number" class="form-control" id="sub_id" name="sub_id" value=<?= $row['sub_lesson_id'] ?> placeholder="Video_id...">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="video_id">Video_ID</label>
-                                                    <input type="text" class="form-control" id="video_id" name="video_id" value="<?= $row['video'] ?>" placeholder="Video_id...">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="image">Image</label>
-                                                    <input type="file" class="form-control" id="image" name="image" value=<?= $row['image'] ?> placeholder="Image...">
+                                                    <label for="username">ID</label>
+                                                    <input type="text" class="form-control my-2" id="ID" value=<?= $row['id'] ?> name="ID" placeholder="username...">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="heading">heading</label>
-                                                    <textarea name="heading" class="form-control" id="" cols="30" rows="2" placeholder="heading..."><?php echo $row['heading'] ?> </textarea>
+                                                    <label for="username">Username</label>
+                                                    <input type="text" class="form-control my-2" id="username" value=<?= $row['username'] ?> name="username" placeholder="username...">
                                                 </div>
+
+
                                                 <div class="form-group">
-                                                    <label for="paragraph">Paragraph</label>
-                                                    <textarea name="paragraph" class="form-control" id="" cols="30" rows="4" placeholder="paragraph..."><?php echo $row['paragraph'] ?> </textarea>
+                                                    <label for="lesson_name">Email</label>
+
+                                                    <input type="text" class="form-control my-2" id="email" value=<?= $row['email'] ?> name="email" placeholder="email...">
                                                 </div>
+
                                                 <div class="form-group">
-                                                    <label for="lesson_id">lesson_ID</label>
-                                                    <input type="text" class="form-control" id="lesson_id" name="lesson_id" value=<?= $row['lesson_id'] ?> placeholder="Lesson_id...">
+                                                    <label for="lesson_id">Password</label>
+                                                    <input type="text" class="form-control my-2" id="password" value=<?= $row['password'] ?> name="password" placeholder="password...">
                                                 </div>
 
 
                                                 <div class="text-center">
-                                                    <button type="submit" name="subLesson" class="btn btn-primary my-2">Update</button>
+                                                    <button type="submit" name="updateAdmin" class="btn btn-primary my-2">Update</button>
                                                 </div>
 
                                             </form>
                                     <?php
 
                                         }
-                                    } else {
-                                        echo "no records found";
                                     }
 
-
+                                    $conn->close();
                                     ?>
                                 </div>
 
                             </div>
                         </div>
                         <div class="col-4"></div>
+
                     </div>
             </main>
             <footer class="py-4 bg-light mt-auto">
@@ -313,14 +217,9 @@ if (!isset($_SESSION['username'])) {
             </footer>
         </div>
     </div>
-    <script>
-        $(".button").click(function() {
-            $("#success").hide();
-        });
-    </script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

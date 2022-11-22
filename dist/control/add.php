@@ -118,8 +118,12 @@ if (isset($_POST['addSnippets'])) {
 
     $language = $_POST['language'];
     $textCode = $_POST['textCode'];
-    $sub_lesson_id = $_POST['sub_lesson_id'];
 
+    $textCode =  htmlspecialchars($textCode);
+    $sub_lesson_id = $_POST['sub_lesson_id'];
+    echo  $language;
+    echo  $textCode;
+    echo  $sub_lesson_id;
     $sql = "insert into code (language,textCode,sub_lesson_id)values('$language','$textCode','$sub_lesson_id')";
     $result = $conn->query($sql);
 
@@ -228,5 +232,24 @@ if (isset($_POST['addLessons'])) {
 
         $_SESSION['error'] = "Failed to add file";
         header("Location: ../addModuleAll.php?student_id=$student_id");
+    }
+}
+
+if (isset($_GET['studentId'])) {
+    $student_id = $_GET['studentId'];
+    $module_id = $_GET['module_id'];
+    $lesson_id = $_GET['lesson_id'];
+
+    $sql = "insert into allmodules_tbl(module_id,lesson_id)values('$module_id','$lesson_id')";
+    $result = $conn->query($sql);
+
+    if ($result) {
+
+        $_SESSION['success'] = "Data inserted Successfully";
+        header("Location: ../addlessons.php?studentId=$student_id&moduleId=$module_id ");
+    } else {
+
+        $_SESSION['error'] = "Failed to add file";
+        header("Location: ../addlessons.php?studentId=$student_id&moduleId=$module_id ");
     }
 }

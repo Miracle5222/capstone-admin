@@ -4,7 +4,7 @@
 
 <?php
 
-$sql1 = "SELECT count(module_id) as Total from modules_tbl";
+$sql1 = "SELECT count(module_id) as Total from modules_tbl group by programming_id";
 $results = $conn->query($sql1);
 $row1 = $results->fetch_assoc();
 

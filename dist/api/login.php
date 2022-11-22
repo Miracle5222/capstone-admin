@@ -26,6 +26,10 @@ if ($result->num_rows > 0) {
         $arr2["email"] = $row['email'];
         array_push($arr1, $arr2);
     }
+} else {
+    $arr2["email"] = "false";
+    $arr2["password"] = "false";
+    array_push($arr1, $arr2);
 }
 
 echo json_encode($arr1);

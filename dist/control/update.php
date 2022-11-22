@@ -96,10 +96,10 @@ if (isset($_POST['updateStudent'])) {
     $sql = "UPDATE student_tbl SET username ='$username', email='$email', password='$password' WHERE student_id=$student_id";
     if ($conn->query($sql) === TRUE) {
         $_SESSION['success'] = "Data Updated Successfully";
-        header("Location: ../editStudents.php?student_id=$student_id#table");
+        header("Location: ../viewmodules.php?student_id=$student_id#table");
     } else {
         $_SESSION['error'] = "Failed to Updated file . $conn->error";
-        header("Location: ../editStudents.php?student_id=$student_id#table");
+        header("Location: ../viewmodules.php?student_id=$student_id#table");
     }
     $conn->close();
 }
@@ -171,13 +171,36 @@ if (isset($_POST['questionsUpdate'])) {
     $difficulty_level = trim($_POST['difficulty_level']);
     $question_type = trim($_POST['question_type']);
 
-    $sql = "UPDATE questions_tbl SET quiz_id='$quiz_id', description='$description', time ='$time', difficulty_level='$difficulty_level', question_type ='$question_type' WHERE question_id=$id";
+    $sql = "UPDATE admin_tbl SET quiz_id='$quiz_id', description='$description', time ='$time', difficulty_level='$difficulty_level', question_type ='$question_type' WHERE question_id=$id";
     if ($conn->query($sql) === TRUE) {
         $_SESSION['success'] = "Data Updated Successfully";
         header("Location: ../editQuestions.php?id=$id#table");
     } else {
         $_SESSION['error'] = "Failed to Updated file . $conn->error";
         header("Location: ../editQuestions.php?id=$id#table");
+    }
+    $conn->close();
+}
+
+if (isset($_POST['updateAdmin'])) {
+
+    $id = $_POST['ID'];
+    $email = $_POST['email'];
+    $username = $_POST['username'];
+    $password = md5($_POST['password']);
+
+
+    $message = "";
+    $status = "";
+    $sql = "UPDATE admin_tbl SET email='$email', username='$username', password ='$password' WHERE id ='$id'";
+    if ($conn->query($sql) === TRUE) {
+        $message .= "Admin Updated Successfully";
+        $status .= "success";
+        header("Location: ../adminProfile.php?message=$message&status=$status");
+    } else {
+        $status .= "danger";
+        $message .= "Failed to Update Admin";
+        header("Location: ../adminProfile.php?message=$message&status=$status");
     }
     $conn->close();
 }
