@@ -90,21 +90,21 @@ if (!isset($_SESSION['username'])) {
                             </nav>
                         </div>
 
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#quiz" aria-expanded="false" aria-controls="collapseLayouts">
+                        <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#quiz" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                             Add Quiz
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-
+                        </a> -->
+                        <!-- 
                         <div class="collapse" id="quiz" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="addQuiz.php"><i class="fas fa-eye px-2"></i>View</a>
-                                <a class="nav-link" href="addQuiz.php"><i class="fas fa-edit px-2"></i>Add</a>
-                                <!-- <a class="nav-link" href="sub-lesson.php">Sub-Lesson</a>
+                                <a class="nav-link" href="addQuiz.php"><i class="fas fa-edit px-2"></i>Add</a> -->
+                        <!-- <a class="nav-link" href="sub-lesson.php">Sub-Lesson</a>
                                 <a class="nav-link" href="code.php">Snippets</a> -->
 
-                            </nav>
-                        </div>
+                        <!-- </nav>
+                        </div> -->
 
 
 
